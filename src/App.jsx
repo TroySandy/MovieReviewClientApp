@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 import Login from "./components/auth/Login";
-import Register from "./components/auth/register2";
+import Register from "./components/auth/Register";
 import Home from "./components/home/Home";
 import Nav from "./components/site/Nav";
 import Header from "./components/site/Header";
@@ -12,7 +12,6 @@ function App() {
     <div className="App">
       <UserContextProvider>
         <Header />
-        <Nav />
 
         <Switch>
           <Route path="/login" component={Login} />
