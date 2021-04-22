@@ -12,7 +12,6 @@ function App() {
     <div className="App">
       <UserContextProvider>
         <Header />
-        <Nav />
 
         <Switch>
           <Route path="/login" component={Login} />
