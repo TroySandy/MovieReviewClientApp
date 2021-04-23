@@ -5,8 +5,11 @@ import UserContext from "../../contexts/UserContext";
 
 const Login = (props) => {
   let { setToken } = useContext(UserContext);
+
   let [username, setUsername] = useState("");
+
   let [password, setPassword] = useState("");
+  
   let [error, setError] = useState([]);
 
   const handleLogin = () => {
