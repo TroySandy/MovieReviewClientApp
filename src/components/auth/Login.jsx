@@ -7,7 +7,7 @@ const Login = (props) => {
   let { setToken } = useContext(UserContext);
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
-  let [error, setError] = useState([]);
+  let [error, setError] = useState("");
 
   const handleLogin = () => {
     let fetchBody = {
@@ -24,21 +24,20 @@ const Login = (props) => {
     })
       .then((res) => {
         if (res.status != 200) {
-          setError(["Something is very wrong."]);
-          console.log("error");
+          setError("Invalid username or password.");
         } else {
           //redirect to login
-          console.log("Success");
           props.history.push("/");
         }
         return res.json();
       })
       .then((res) => {
-        console.log(res);
-        setToken(res.token);
+        if (!res.error) {
+          setToken(res.token);
+        }
       })
       .catch((err) => {
-        setError([err.message]);
+        setError(err.message);
       });
   };
 
@@ -49,6 +48,11 @@ const Login = (props) => {
           <Col xs={6}>
             <Card>
               <Card.Body>
+                <h1 className="text-center">Login</h1>
+                <hr />
+                <div className="text-center pb-2" style={{ color: "red" }}>
+                  {error}
+                </div>
                 <Form>
                   <Form.Group as={Row} controlId="formGroupUsername">
                     <Form.Label column sm="auto">
@@ -70,7 +74,7 @@ const Login = (props) => {
                       <Form.Control
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        type="text"
+                        type="password"
                       />
                     </Col>
                   </Form.Group>
