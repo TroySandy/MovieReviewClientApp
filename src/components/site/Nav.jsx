@@ -13,14 +13,20 @@ const SiteNavbar = (props) => {
           <Navbar.Brand className="mr-auto">Movie DB</Navbar.Brand>
         </LinkContainer>
         <Nav>
-          {userContext.token !== "" ? (
-            <Nav.Link
-              onClick={() => {
-                userContext.setToken("");
-              }}
-            >
-              Log Out
-            </Nav.Link>
+          <LinkContainer to="/">
+            <Nav.Link>Home</Nav.Link>
+          </LinkContainer>
+          {userContext.isAuth ? (
+            <>
+              <Nav.Link>Watchlist</Nav.Link>
+              <Nav.Link
+                onClick={() => {
+                  userContext.setToken("");
+                }}
+              >
+                Log Out
+              </Nav.Link>
+            </>
           ) : (
             <LinkContainer to="/login">
               <Nav.Link>Login</Nav.Link>
@@ -28,7 +34,7 @@ const SiteNavbar = (props) => {
           )}
         </Nav>
       </Navbar>
-      {userContext.token}
+      {userContext.isAuth ? <p>Hello {userContext.user.firstName}</p> : null}
     </>
   );
 };
