@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import env from "react-dotenv";
 
@@ -10,7 +10,57 @@ const Register = (props) => {
   let [verifyEmail, setVerifyEmail] = useState("");
   let [password, setPassword] = useState("");
   let [verifyPassword, setVerifyPassword] = useState("");
-  let [error, setError] = useState([]);
+  let [errors, setErrors] = useState([]);
+  let [validated, setValidated] = useState(false);
+
+  const runValidation = () => {
+    let errs = [];
+
+    //handle validation
+    if (firstName.length < 1) {
+      errs.push("firstName");
+    }
+    if (lastName.length < 1) {
+      errs.push("lastName");
+    }
+    if (username.length < 4 || !username.match(/[!@#$_0-9]/g)) {
+      errs.push("username");
+    }
+    if (
+      !email.match(
+        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
+      )
+    ) {
+      errs.push("emailWrong");
+    }
+    if (email != verifyEmail) {
+      errs.push("emailVerify");
+    }
+    if (password.length < 5) {
+      errs.push("passwordWrong");
+    }
+    if (password != verifyPassword) {
+      errs.push("passwordVerify");
+    }
+
+    setErrors(errs);
+
+    return errs;
+  };
+
+  useEffect(() => {
+    if (validated) {
+      setErrors(runValidation());
+    }
+  }, [
+    firstName,
+    lastName,
+    username,
+    password,
+    verifyPassword,
+    email,
+    verifyEmail,
+  ]);
 
   const handleRegister = () => {
     let fetchBody = {
@@ -21,28 +71,35 @@ const Register = (props) => {
       email,
     };
 
-    fetch(`http://localhost:4000/user/register`, {
-      method: "POST",
-      body: JSON.stringify(fetchBody),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (res.status != 201) {
-          setError(["Something is very wrong."]);
-          console.log("error");
-        } else {
-          //redirect to login
-          console.log("Success");
-          props.history.push("/login");
-        }
-        return res.json();
+    let errs = runValidation();
+
+    if (errs.length == 0) {
+      fetch(`http://localhost:4000/user/register`, {
+        method: "POST",
+        body: JSON.stringify(fetchBody),
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .then((res) => console.log(res))
-      .catch((err) => {
-        setError([err.message]);
-      });
+        .then((res) => {
+          if (res.status != 201) {
+            setErrors(["Something is very wrong."]);
+            console.log("error");
+          } else {
+            //redirect to login
+            console.log("Success");
+            props.history.push("/login");
+          }
+          return res.json();
+        })
+        .then((res) => console.log(res))
+        .catch((err) => {
+          setErrors([err.message]);
+        });
+    } else {
+      setErrors(errs);
+      setValidated(true);
+    }
   };
 
   return (
@@ -52,7 +109,8 @@ const Register = (props) => {
           <Col xs={7}>
             <Card>
               <Card.Body>
-                {error ? error.map((e) => <div>{e}</div>) : null}
+                <h1 className="text-center">Register</h1>
+                <hr />
                 <Form>
                   <Form.Row>
                     <Col>
@@ -63,16 +121,32 @@ const Register = (props) => {
                           onChange={(e) => setFirstName(e.target.value)}
                           type="text"
                         />
+                        {errors.includes("firstName") && (
+                          <Form.Control.Feedback
+                            type="invalid"
+                            className="d-block"
+                          >
+                            *Required
+                          </Form.Control.Feedback>
+                        )}
                       </Form.Group>
                     </Col>
                     <Col>
-                      <Form.Group controlId="formGroupFirstName">
+                      <Form.Group controlId="formGroupLastName">
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control
                           value={lastName}
                           onChange={(e) => setLastName(e.target.value)}
                           type="text"
                         />
+                        {errors.includes("lastName") && (
+                          <Form.Control.Feedback
+                            type="invalid"
+                            className="d-block"
+                          >
+                            *Required
+                          </Form.Control.Feedback>
+                        )}
                       </Form.Group>
                     </Col>
                   </Form.Row>
@@ -85,6 +159,15 @@ const Register = (props) => {
                           onChange={(e) => setUsername(e.target.value)}
                           type="text"
                         />
+                        {errors.includes("username") && (
+                          <Form.Control.Feedback
+                            type="invalid"
+                            className="d-block"
+                          >
+                            *Required (Must be longer than 3 characters and
+                            include one special character or number)
+                          </Form.Control.Feedback>
+                        )}
                       </Form.Group>
                     </Col>
                   </Form.Row>
@@ -97,6 +180,14 @@ const Register = (props) => {
                           onChange={(e) => setEmail(e.target.value)}
                           type="email"
                         />
+                        {errors.includes("emailWrong") && (
+                          <Form.Control.Feedback
+                            type="invalid"
+                            className="d-block"
+                          >
+                            Invalid Email
+                          </Form.Control.Feedback>
+                        )}
                       </Form.Group>
                     </Col>
                     <Col>
@@ -107,6 +198,14 @@ const Register = (props) => {
                           onChange={(e) => setVerifyEmail(e.target.value)}
                           type="email"
                         />
+                        {errors.includes("emailVerify") && (
+                          <Form.Control.Feedback
+                            type="invalid"
+                            className="d-block"
+                          >
+                            Emails do not match
+                          </Form.Control.Feedback>
+                        )}
                       </Form.Group>
                     </Col>
                   </Form.Row>
@@ -119,6 +218,14 @@ const Register = (props) => {
                           onChange={(e) => setPassword(e.target.value)}
                           type="password"
                         />
+                        {errors.includes("passwordWrong") && (
+                          <Form.Control.Feedback
+                            type="invalid"
+                            className="d-block"
+                          >
+                            Password must be 5 or more chars long
+                          </Form.Control.Feedback>
+                        )}
                       </Form.Group>
                     </Col>
                     <Col>
@@ -129,6 +236,14 @@ const Register = (props) => {
                           onChange={(e) => setVerifyPassword(e.target.value)}
                           type="password"
                         />
+                        {errors.includes("passwordVerify") && (
+                          <Form.Control.Feedback
+                            type="invalid"
+                            className="d-block"
+                          >
+                            Passwords do not match
+                          </Form.Control.Feedback>
+                        )}
                       </Form.Group>
                     </Col>
                   </Form.Row>
