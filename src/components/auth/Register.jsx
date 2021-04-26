@@ -105,6 +105,9 @@ const Register = (props) => {
   return (
     <>
       <Container>
+        {errors.map((e) => (
+          <div>{e}</div>
+        ))}
         <Row className="justify-content-center pt-5">
           <Col xs={7}>
             <Card>
@@ -249,7 +252,14 @@ const Register = (props) => {
                   </Form.Row>
                   <Form.Row>
                     <Col>
-                      <Button onClick={() => handleRegister()}>Register</Button>
+                      <Button
+                        onClick={() => {
+                          setValidated(true);
+                          handleRegister();
+                        }}
+                      >
+                        Register
+                      </Button>
                     </Col>
                   </Form.Row>
                 </Form>
