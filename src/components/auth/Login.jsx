@@ -26,7 +26,7 @@ const Login = (props) => {
         if (res.status != 200) {
           setError("Invalid username or password.");
         } else {
-          //redirect to login
+          //redirect to home
           props.history.push("/");
         }
         return res.json();

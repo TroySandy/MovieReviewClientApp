@@ -11,7 +11,7 @@ export const UserContextProvider = (props) => {
     if (token) {
       localStorage.setItem("token", token);
 
-      fetch(`http://${window.env.SERVER_API_URL}/user/`, {
+      fetch(`//${process.env.REACT_APP_SERVER_API_URL}/user/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

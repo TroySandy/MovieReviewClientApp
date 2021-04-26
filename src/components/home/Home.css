@@ -1,3 +1,29 @@
+.movie-search {
+  border-radius: 0;
+  border: 2px solid black;
+}
+
+.movie-card {
+  position: relative;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.movie-card-title {
+  display: none;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 0px;
+  padding: 5px;
+  line-height: 1;
+}
+
+.movie-card:hover .movie-card-title {
+  display: block;
+}
 /* .body {
     background-color: grey!important;
 } */
