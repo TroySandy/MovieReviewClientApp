@@ -3,6 +3,8 @@ import "./Home.css";
 import HomeSidebar from "./HomeSidebar";
 import HomeMovieCard from "./HomeMovieCard";
 import { useState, useEffect } from "react";
+import ReviewIndex from '../movies/movieIndex'
+
 
 const Home = (props) => {
   const [moviesResult, setMoviesResult] = useState([]);
@@ -27,7 +29,7 @@ const Home = (props) => {
 
   return (
     <>
-      <Container className="pt-5">
+      <Container className="pt-5 body">
         <Row>
           {/* Main Content */}
           <Col xs={9}>
@@ -42,7 +44,9 @@ const Home = (props) => {
                 />
               </Col>
             </Row>
-
+              <div>
+                <ReviewIndex movie_id='634' />
+              </div>
             {/* Movie Display */}
             <Row className="pt-3">
               {moviesResult.map((movie) => {
