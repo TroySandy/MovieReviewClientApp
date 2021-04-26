@@ -58,12 +58,13 @@ const ReviewIndex = (props) => {
   useEffect(() => {
     fetchReviews();
   }, []);
-console.log(reviews);
+  console.log(reviews);
   return (
     <Container>
       <Row>
         <Col>
-          <ReviewCreate fetchReviews={fetchReviews} />
+          {updateActive ? <ReviewCreate fetchReviews={fetchReviews} updateoff={updateOff} /> : <> </>}
+          <Button onClick={updateOn}>Click me to leave a review</Button>
         </Col>
         <Col>
           <MovieDisplay
@@ -75,7 +76,7 @@ console.log(reviews);
             updateOn={updateOn}
           />
         </Col>
-        {updateActive ? (
+        {/* {updateActive ? (
           <ReviewEdit
             reviewToUpdate={reviewToUpdate}
             updateOff={updateOff}
@@ -84,7 +85,7 @@ console.log(reviews);
           />
         ) : (
           <></>
-        )}
+        )} */}
       </Row>
     </Container>
   );
