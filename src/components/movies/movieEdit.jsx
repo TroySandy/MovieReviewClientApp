@@ -12,9 +12,8 @@ import {
 } from "reactstrap";
 
 const ReviewEdit = (props) => {
-  const [editReview, setEditReview] = useState(
-    props.reviewToUpdate.description
-  );
+  console.log(props);
+  const [editReview, setEditReview] = useState(props.reviewToUpdate.description);
   const [editRating, setEditRating] = useState(props.reviewToUpdate.definition);
   const [editFavorite, setEditFavorite] = useState(props.reviewToUpdate.result);
   const [editWatched, setEditWatched] = useState(props.reviewToUpdate.result);
@@ -84,7 +83,7 @@ const ReviewEdit = (props) => {
               onClick={(e) => setEditWatched(true)}
             />
           </FormGroup>
-          <Button type="submit">Update your Review!</Button>
+          <Button type="submit" onclick={reviewUpdate} onCLick={props.updateOff}>Update your Review!</Button>
         </Form>
       </ModalBody>
     </Modal>
