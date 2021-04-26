@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
-import env from "react-dotenv";
 
 const Register = (props) => {
   let [firstName, setFirstName] = useState("");

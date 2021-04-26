@@ -1,9 +1,7 @@
 import { Row, Col } from "react-bootstrap";
-import MovieCard from "./MovieCard";
+import MovieCard from "./HomeMovieCard";
 
 const MovieDisplay = (props) => {
-  console.log(props.results);
-
   return (
     <Row noGutters className="pt-3">
       {props.results.map((movie) => {

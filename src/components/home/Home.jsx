@@ -1,10 +1,11 @@
 import { Container, Row, Col, Form, Card } from "react-bootstrap";
 import "./Home.css";
 import HomeSidebar from "./HomeSidebar";
-import HomeMovieCard from "./MovieCard";
+import HomeMovieCard from "./HomeMovieCard";
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
-import MovieDisplay from "./MovieDisplay";
+import MovieDisplay from "./HomeMovieDisplay";
+import ReviewIndex from "../review/ReviewIndex";
 
 const Home = (props) => {
   const [moviesResult, setMoviesResult] = useState([]);
@@ -16,13 +17,13 @@ const Home = (props) => {
     if (searchInput == "") {
       fetch(
         // `${window.env.TMDB_API_URL}/movie/popular?region=US&api_key=${window.env.TMDB_API_KEY}`
-        `${window.env.TMDB_API_URL}/trending/movie/week?api_key=${window.env.TMDB_API_KEY}`
+        `${process.env.REACT_APP_TMDB_API_URL}/trending/movie/week?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
       )
         .then((res) => res.json())
         .then((res) => setMoviesResult(res.results));
     } else {
       fetch(
-        `${window.env.TMDB_API_URL}/search/movie?region=US&query=${searchInput}&api_key=${window.env.TMDB_API_KEY}`
+        `${process.env.REACT_APP_TMDB_API_URL}/search/movie?region=US&query=${searchInput}&api_key=${process.env.REACT_APP_TMDB_API_KEY}`
       )
         .then((res) => res.json())
         .then((res) => setMoviesResult(res.results));
@@ -47,9 +48,9 @@ const Home = (props) => {
                 />
               </Col>
             </Row>
-              <div>
-                <ReviewIndex movie_id='634' />
-              </div>
+            {/* <div>
+              <ReviewIndex movie_id="634" />
+            </div> */}
             {/* Movie Display */}
             <MovieDisplay results={moviesResult} />
           </Col>

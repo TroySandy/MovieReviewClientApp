@@ -6,6 +6,7 @@
 .movie-card {
   position: relative;
   margin: 5px;
+  cursor: pointer;
 }
 
 .movie-card-title {

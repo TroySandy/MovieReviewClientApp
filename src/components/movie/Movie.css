@@ -1,0 +1,7 @@
+.movie {
+  background-color: white;
+}
+
+.stars > ul > li {
+  margin-right: 5px !important;
+}

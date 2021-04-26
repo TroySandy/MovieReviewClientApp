@@ -1,29 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form, FormGroup, Label, Input, CustomInput } from "reactstrap";
+import UserContext from "../../contexts/UserContext";
 
 const ReviewCreate = (props) => {
+  const userContext = useContext(UserContext);
   const [review, setReview] = useState("");
   const [rating, setRating] = useState("");
   const [favorite, setFavorite] = useState(false);
   const [watched, setWatched] = useState(false);
-  const [movie_id, setMovie_id] = useState("");
+  const [movie_id, setMovie_id] = useState(643);
   const [owner_id, setOwner_id] = useState("");
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:3000/review/`, {
+
+    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/`, {
       method: "POST",
       body: JSON.stringify({
         review,
         rating,
         favorite,
         watched,
-        movie_id,
-        owner_id: props.owner_id,
+        movie_id: 643,
+        owner_id: userContext.user.id,
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${props.token}`,
+        Authorization: `Bearer ${userContext.token}`,
       }),
     })
       .then((res) => res.json())
@@ -36,13 +39,13 @@ const ReviewCreate = (props) => {
         setOwner_id("");
         props.fetchReviews();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.message));
   };
 
   return (
     <>
       <h2>Create Your Movie Review</h2>
-      <Form onClick={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <div>
           <Label htmlFor="review" />
           <Input
@@ -65,9 +68,9 @@ const ReviewCreate = (props) => {
             type="switch"
             id="favoriteSwitch"
             name="favorite"
-            value="favorite"
+            value={favorite}
             label="Is this one of your favorite"
-            onClick={(e) => setFavorite(true)}
+            onClick={(e) => setFavorite(!favorite)}
           />
         </div>
         <div>
@@ -76,9 +79,9 @@ const ReviewCreate = (props) => {
             type="switch"
             id="watchedSwitch"
             name="watched"
-            value="watched"
+            value={watched}
             label="Have you seen this movie?"
-            onClick={(e) => setWatched(true)}
+            onClick={(e) => setWatched(!watched)}
           />
         </div>
         <div>
