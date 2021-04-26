@@ -74,7 +74,7 @@ const Register = (props) => {
     let errs = runValidation();
 
     if (errs.length == 0) {
-      fetch(`http://localhost:4000/user/register`, {
+      fetch(`http://localhost:3000/user/register`, {
         method: "POST",
         body: JSON.stringify(fetchBody),
         headers: {

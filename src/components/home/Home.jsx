@@ -31,7 +31,7 @@ const Home = (props) => {
 
   return (
     <>
-      <Container className="pt-5">
+      <Container className="pt-5 body">
         <Row noGutters>
           {/* Main Content */}
           <Col xs={9}>
@@ -47,7 +47,9 @@ const Home = (props) => {
                 />
               </Col>
             </Row>
-
+              <div>
+                <ReviewIndex movie_id='634' />
+              </div>
             {/* Movie Display */}
             <MovieDisplay results={moviesResult} />
           </Col>

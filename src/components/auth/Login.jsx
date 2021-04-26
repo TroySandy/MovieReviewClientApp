@@ -15,7 +15,7 @@ const Login = (props) => {
       password,
     };
 
-    fetch(`http://localhost:4000/user/login`, {
+    fetch(`http://localhost:3000/user/login`, {
       method: "POST",
       body: JSON.stringify(fetchBody),
       headers: {
