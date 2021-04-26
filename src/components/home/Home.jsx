@@ -4,6 +4,7 @@ import HomeSidebar from "./HomeSidebar";
 import HomeMovieCard from "./HomeMovieCard";
 import { useState, useEffect } from "react";
 import ReviewIndex from '../movies/movieIndex'
+import StarRating from '../movies/starRating/stars'
 
 
 const Home = (props) => {
