@@ -63,7 +63,7 @@ const ReviewIndex = (props) => {
     <Container>
       <Row>
         <Col>
-          {updateActive ? <ReviewCreate fetchReviews={fetchReviews} updateoff={updateOff} /> : <> </>}
+          {/* {updateActive ? <ReviewCreate fetchReviews={fetchReviews} updateoff={updateOff} owner_id={1} movie_id={123}/> : <> </>} */}
           <Button onClick={updateOn}>Click me to leave a review</Button>
         </Col>
         <Col>
@@ -76,7 +76,7 @@ const ReviewIndex = (props) => {
             updateOn={updateOn}
           />
         </Col>
-        {/* {updateActive ? (
+        {updateActive ? (
           <ReviewEdit
             reviewToUpdate={reviewToUpdate}
             updateOff={updateOff}
@@ -85,7 +85,7 @@ const ReviewIndex = (props) => {
           />
         ) : (
           <></>
-        )} */}
+        )}
       </Row>
     </Container>
   );

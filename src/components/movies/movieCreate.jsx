@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input, CustomInput } from "reactstrap";
 
 const ReviewCreate = (props) => {
+  console.log(props);
   const [review, setReview] = useState("");
   const [rating, setRating] = useState("");
   const [favorite, setFavorite] = useState(false);
@@ -10,6 +11,7 @@ const ReviewCreate = (props) => {
   const [owner_id, setOwner_id] = useState("");
 
   let handleSubmit = (e) => {
+    console.log(review, rating, favorite, watched, movie_id, );
     e.preventDefault();
     fetch(`http://localhost:3000/review/`, {
       method: "POST",
@@ -18,7 +20,7 @@ const ReviewCreate = (props) => {
         rating,
         favorite,
         watched,
-        movie_id,
+        movie_id: props.movie_id,
         owner_id: props.owner_id,
       }),
       headers: new Headers({
@@ -42,7 +44,7 @@ const ReviewCreate = (props) => {
   return (
     <>
       <h2>Create Your Movie Review</h2>
-      <Form onClick={handleSubmit}>
+      <Form >
         <div>
           <Label htmlFor="review" />
           <Input
@@ -87,7 +89,7 @@ const ReviewCreate = (props) => {
         <div>
           <Label htmlFor="owner_id" />
         </div>
-        <Button type="submit">Click to Submit Your Review!</Button>
+        <Button type="submit" onClick={handleSubmit}>Click to Submit Your Review!</Button>
       </Form>
     </>
   );
