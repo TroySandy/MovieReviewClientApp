@@ -9,11 +9,12 @@ import MovieDisplay from "./movieDisplay";
 const ReviewIndex = (props) => {
   const [reviews, setReviews] = useState([]);
   const [updateActive, setUpdateActive] = useState(false);
-  const [reviewToUpdate, setReviewToUpdate] = useState({});
-  const movie_id = "634"
+  const [reviewToUpdate, setReviewToUpdate] = useState("");
+  const { movie_id } = "643";
+
   //  const userContext = useContext(UserContext)
   // const token =
-  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwia…1NTl9.VkzGmGs0hqkZAo99RxHQx0QOcIwsGBhcSHUtGbzNTZs";
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImlhdCI6MTYxOTQ0MjMwMH0.byi6Z-uB5a_sOoa5EEHrU_DcJlpX_juNi5AADBHcHmE";
   // const movie_id = "643";
 
   const editUpdateReview = (review) => {
@@ -29,10 +30,11 @@ const ReviewIndex = (props) => {
   };
 
   const fetchReviews = () => {
-    // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwia…1NTl9.VkzGmGs0hqkZAo99RxHQx0QOcIwsGBhcSHUtGbzNTZs'
+    const movie_id = "643";
+    // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImlhdCI6MTYxOTQ0MjMwMH0.byi6Z-uB5a_sOoa5EEHrU_DcJlpX_juNi5AADBHcHmE'
     // const owner_id = 'mom1'
-
-    fetch(`http://localhost:3000/review/movie/:movie_id`, {
+    console.log(movie_id);
+    fetch(`http://localhost:3000/review/movie/`, {
       method: "POST",
       body: JSON.stringify({
         movie_id: movie_id,
@@ -42,10 +44,13 @@ const ReviewIndex = (props) => {
         // Authorization: `Bearer ${userContext.token}`,
       }),
     })
-      .then((res) => res.json)
       .then((res) => {
-        console.log(res.reviews);
-        setReviews(res.reviews);
+        console.log(res);
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        setReviews(res);
       })
       .catch((err) => console.log(err));
   };
@@ -53,16 +58,15 @@ const ReviewIndex = (props) => {
   useEffect(() => {
     fetchReviews();
   }, []);
-
-  
-
+console.log(reviews);
   return (
     <Container>
       <Row>
-        {/* <Col><ReviewCreate/></Col> */}
         <Col>
-          
-      <MovieDisplay
+          <ReviewCreate fetchReviews={fetchReviews} />
+        </Col>
+        <Col>
+          <MovieDisplay
             reviews={reviews}
             movie_id={movie_id}
             // token={token}
