@@ -74,7 +74,7 @@ const Register = (props) => {
     let errs = runValidation();
 
     if (errs.length == 0) {
-      fetch(`http://localhost:4000/user/register`, {
+      fetch(`http://localhost:3000/user/register`, {
         method: "POST",
         body: JSON.stringify(fetchBody),
         headers: {
@@ -104,7 +104,7 @@ const Register = (props) => {
 
   return (
     <>
-      <Container>
+      <Container className="mb-5">
         <Row className="justify-content-center pt-5">
           <Col xs={7}>
             <Card>
@@ -249,7 +249,7 @@ const Register = (props) => {
                   </Form.Row>
                   <Form.Row>
                     <Col>
-                      <Button onClick={() => handleRegister()}>Register</Button>
+                      <Button variant="danger" onClick={() => handleRegister()}>Register</Button>
                     </Col>
                   </Form.Row>
                 </Form>

@@ -41,6 +41,6 @@
     ]
   },
   "react-dotenv": {
-    "whitelist": ["https://api.themoviedb.org/3"]
+    "whitelist": []
   }
 }

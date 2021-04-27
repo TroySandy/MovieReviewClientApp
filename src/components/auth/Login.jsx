@@ -17,7 +17,7 @@ const Login = (props) => {
       password,
     };
 
-    fetch(`http://localhost:4000/user/login`, {
+    fetch(`http://localhost:3000/user/login`, {
       method: "POST",
       body: JSON.stringify(fetchBody),
       headers: {
@@ -45,7 +45,7 @@ const Login = (props) => {
 
   return (
     <>
-      <Container>
+      <Container className="mb-5">
         <Row className="justify-content-center pt-5">
           <Col xs={6}>
             <Card>
@@ -82,10 +82,11 @@ const Login = (props) => {
                   </Form.Group>
                   <Form.Row className="justify-content-center">
                     <LinkContainer to="/register">
-                      <Button className="mx-1">Register</Button>
+                      <Button className="mx-1" variant="danger" >Register</Button>
                     </LinkContainer>
                     <Button
                       className="mx-1"
+                      variant="danger"
                       onClick={() => {
                         handleLogin();
                       }}

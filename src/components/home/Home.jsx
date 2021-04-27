@@ -15,19 +15,21 @@ const Home = (props) => {
         `${window.env.TMDB_API_URL}/movie/popular?api_key=${window.env.TMDB_API_KEY}`
       )
         .then((res) => res.json())
-        .then((res) => setMoviesResult(res.results));
+        .then((res) => setMoviesResult(res.results))
+        .catch((err) => console.log(err))
     } else {
       fetch(
         `${window.env.TMDB_API_URL}/search/movie?query=${searchInput}&api_key=${window.env.TMDB_API_KEY}`
       )
         .then((res) => res.json())
-        .then((res) => setMoviesResult(res.results));
+        .then((res) => setMoviesResult(res.results))
+        .catch((err) => console.log(err))
     }
   }, [searchInput]);
 
   return (
     <>
-      <Container className="pt-5">
+      <Container className="pt-f body pt-3">
         <Row>
           {/* Main Content */}
           <Col xs={9}>
@@ -44,7 +46,7 @@ const Home = (props) => {
             </Row>
 
             {/* Movie Display */}
-            <Row className="pt-3">
+            <Row className="pt-3" style={{color: 'yellow'}}>
               {moviesResult.map((movie) => {
                 return <HomeMovieCard movie={movie} />;
               })}

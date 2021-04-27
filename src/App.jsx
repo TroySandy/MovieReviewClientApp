@@ -6,10 +6,11 @@ import Nav from "./components/site/Nav";
 import Header from "./components/site/Header";
 import Footer from "./components/site/Footer";
 import { UserContextProvider } from "./contexts/UserContext";
+import "./App.css"
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" className="grey">
       <UserContextProvider>
         <Header />
 

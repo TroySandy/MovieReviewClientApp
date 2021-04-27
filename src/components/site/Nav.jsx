@@ -1,14 +1,15 @@
 import { useContext } from "react";
-import { Nav, Navbar, NavLink } from "react-bootstrap";
+import { Nav, Navbar, NavLink, Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import UserContext from "../../contexts/UserContext";
+import '../site/Site.css'
 
 const SiteNavbar = (props) => {
   let userContext = useContext(UserContext);
 
   return (
     <>
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="danger" variant="dark">
         <LinkContainer to="/">
           <Navbar.Brand className="mr-auto">Movie DB</Navbar.Brand>
         </LinkContainer>
@@ -34,7 +35,11 @@ const SiteNavbar = (props) => {
           )}
         </Nav>
       </Navbar>
-      {userContext.isAuth ? <p>Hello {userContext.user.firstName}</p> : null}
+      <Card bg="danger" className="mb-3">
+      <Card.Title className="fonts" id="header">
+      {userContext.isAuth ? <p>Hello {userContext.user.firstName}!</p> : null}
+      </Card.Title>
+      </Card>
     </>
   );
 };
