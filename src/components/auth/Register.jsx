@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
-import env from "react-dotenv";
 
 const Register = (props) => {
   let [firstName, setFirstName] = useState("");
@@ -74,7 +73,7 @@ const Register = (props) => {
     let errs = runValidation();
 
     if (errs.length == 0) {
-      fetch(`http://localhost:3000/user/register`, {
+      fetch(`//${process.env.REACT_APP_SERVER_API_URL}/user/register`, {
         method: "POST",
         body: JSON.stringify(fetchBody),
         headers: {
@@ -104,7 +103,10 @@ const Register = (props) => {
 
   return (
     <>
-      <Container className="mb-5">
+      <Container>
+        {errors.map((e) => (
+          <div>{e}</div>
+        ))}
         <Row className="justify-content-center pt-5">
           <Col xs={7}>
             <Card>
@@ -249,7 +251,14 @@ const Register = (props) => {
                   </Form.Row>
                   <Form.Row>
                     <Col>
-                      <Button variant="danger" onClick={() => handleRegister()}>Register</Button>
+                      <Button
+                        onClick={() => {
+                          setValidated(true);
+                          handleRegister();
+                        }}
+                      >
+                        Register
+                      </Button>
                     </Col>
                   </Form.Row>
                 </Form>

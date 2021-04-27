@@ -17,7 +17,7 @@ const Login = (props) => {
       password,
     };
 
-    fetch(`http://localhost:3000/user/login`, {
+    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/user/login`, {
       method: "POST",
       body: JSON.stringify(fetchBody),
       headers: {
@@ -28,7 +28,7 @@ const Login = (props) => {
         if (res.status != 200) {
           setError("Invalid username or password.");
         } else {
-          //redirect to login
+          //redirect to home
           props.history.push("/");
         }
         return res.json();

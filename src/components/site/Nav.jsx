@@ -35,11 +35,6 @@ const SiteNavbar = (props) => {
           )}
         </Nav>
       </Navbar>
-      <Card bg="danger" className="mb-3">
-      <Card.Title className="fonts" id="header">
-      {userContext.isAuth ? <p>Hello {userContext.user.firstName}!</p> : null}
-      </Card.Title>
-      </Card>
     </>
   );
 };
