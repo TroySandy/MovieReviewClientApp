@@ -1,15 +1,20 @@
 import React, { useContext, useState } from "react";
-import { Button, Form, FormGroup, Label, Input, CustomInput } from "reactstrap";
+import { Button, Form } from "react-bootstrap";
 import UserContext from "../../contexts/UserContext";
+import ReviewStars from "../movie/ReviewStars";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye as eyeEmpty } from "@fortawesome/free-regular-svg-icons";
+import { faEye as eyeFull } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as heartEmpty } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as heartFull } from "@fortawesome/free-solid-svg-icons";
 
 const ReviewCreate = (props) => {
   const userContext = useContext(UserContext);
   const [review, setReview] = useState("");
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState(3);
   const [favorite, setFavorite] = useState(false);
-  const [watched, setWatched] = useState(false);
-  const [movie_id, setMovie_id] = useState(643);
-  const [owner_id, setOwner_id] = useState("");
+  const [watched, setWatched] = useState(true);
+  const [movie_id, setMovie_id] = useState(props.movieId);
 
   let handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +26,7 @@ const ReviewCreate = (props) => {
         rating,
         favorite,
         watched,
-        movie_id: 643,
+        movie_id,
         owner_id: userContext.user.id,
       }),
       headers: new Headers({
@@ -32,65 +37,69 @@ const ReviewCreate = (props) => {
       .then((res) => res.json())
       .then((reviewData) => {
         setReview("");
-        setRating("");
+        setRating(3);
         setFavorite(false);
-        setWatched(false);
-        setMovie_id("");
-        setOwner_id("");
+        setWatched(true);
         props.fetchReviews();
+        props.handleClose();
       })
       .catch((err) => console.log(err.message));
   };
 
   return (
     <>
-      <h2>Create Your Movie Review</h2>
-      <Form onSubmit={handleSubmit}>
-        <div>
-          <Label htmlFor="review" />
-          <Input
-            name="review"
+      <Form onSubmit={handleSubmit} className="p-3">
+        <Form.Group>
+          <Form.Label>Please leave a review:</Form.Label>
+          <Form.Control
+            as="textarea"
             value={review}
-            onChange={(e) => setReview(e.target.value)}
+            onChange={(e) => {
+              setReview(e.target.value);
+            }}
+            rows={3}
           />
-        </div>
-        <div>
-          <Label htmlFor="rating" />
-          <Input
-            name="rating"
+        </Form.Group>
+
+        <div className="d-flex justify-content-center">
+          <ReviewStars
             value={rating}
-            onChange={(e) => setRating(e.target.value)}
+            size="36pt"
+            spacing="1.5rem"
+            clickable
+            onChange={setRating}
           />
         </div>
-        <div>
-          <Label htmlFor="favorite" />
-          <CustomInput
-            type="switch"
-            id="favoriteSwitch"
-            name="favorite"
-            value={favorite}
-            label="Is this one of your favorite"
-            onClick={(e) => setFavorite(!favorite)}
-          />
+
+        <div className="d-flex justify-content-center mt-3">
+          <div className="px-3">
+            <p className="mx-auto text-center w-100">
+              <FontAwesomeIcon
+                onClick={() => setWatched(!watched)}
+                size="2x"
+                icon={watched ? eyeFull : eyeEmpty}
+                color={watched ? "black" : "lightgrey"}
+                style={{ cursor: "pointer" }}
+              />
+            </p>
+            <p>Watched</p>
+          </div>
+          <div className="px-3">
+            <p className="mx-auto text-center w-100">
+              <FontAwesomeIcon
+                onClick={() => setFavorite(!favorite)}
+                size="2x"
+                icon={favorite ? heartFull : heartEmpty}
+                color={favorite ? "red" : "lightgrey"}
+                style={{ cursor: "pointer" }}
+              />
+            </p>
+            <p>Favorite</p>
+          </div>
         </div>
-        <div>
-          <Label htmlFor="watched" />
-          <CustomInput
-            type="switch"
-            id="watchedSwitch"
-            name="watched"
-            value={watched}
-            label="Have you seen this movie?"
-            onClick={(e) => setWatched(!watched)}
-          />
+        <div className="d-flex justify-content-center">
+          <Button type="submit">Click to Submit Your Review!</Button>
         </div>
-        <div>
-          <Label htmlFor="movie_id" />
-        </div>
-        <div>
-          <Label htmlFor="owner_id" />
-        </div>
-        <Button type="submit">Click to Submit Your Review!</Button>
       </Form>
     </>
   );
