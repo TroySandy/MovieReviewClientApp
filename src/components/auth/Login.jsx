@@ -15,7 +15,7 @@ const Login = (props) => {
       password,
     };
 
-    fetch(`http://localhost:3000/user/login`, {
+    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/user/login`, {
       method: "POST",
       body: JSON.stringify(fetchBody),
       headers: {

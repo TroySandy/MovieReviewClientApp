@@ -1,120 +1,80 @@
-import React from "react";
-import {useState, useEffect, useContext} from 'react'
-import { Table, Button, Container, Row, Col } from "reactstrap";
-import BeautyStars from "beauty-stars";
+import React, { useState, useEffect, useContext } from "react";
+import { Col } from "react-bootstrap";
 import UserContext from "../../contexts/UserContext";
-import ReviewCreate from "./ReviewCreate";
-import ReviewEdit from "./ReviewEdit";
+import ReviewStars from "../movie/ReviewStars";
 
-
-const MovieDisplay = (review) => {
+const MovieDisplay = (props) => {
   const userContext = useContext(UserContext);
-  const [reviews, setReviews] = useState([]);
-  const [updateActive, setUpdateActive] = useState(false);
-  const [reviewToUpdate, setReviewToUpdate] = useState("");
-  console.log("review", review);
-  console.log("review.reviews", review.reviews);
+  const [user, setUser] = useState(null);
+  const [review] = useState(props.review);
 
-
-  const updateOn = () => {
-    setUpdateActive(true);
-  };
-
-  const updateOff = () => {
-    setUpdateActive(false);
-  };
-
-  const fetchReviews = () => {
-    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie/`, {
-      method: "POST",
-      body: JSON.stringify({
-        movie_id: '460465',
-      }),
+  const deleteReview = () => {
+    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/`, {
+      method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${userContext.token}`,
+        Authorization: `Bearer ${userContext.token}`,
       }),
+      body: JSON.stringify({ id: review.id }),
     })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        console.log(res);
-        setReviews(res);
-      })
+      .then(() => props.fetchReviews())
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    fetchReviews();
+    if (userContext.isAuth && userContext.user.id === review.owner_id) {
+      setUser(userContext.user);
+    } else {
+      fetch(`//${process.env.REACT_APP_SERVER_API_URL}/user/${review.owner_id}`)
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          setUser(res);
+        });
+    }
   }, []);
 
-  const deleteReview = (review) => {
-    fetch(
-      `//${process.env.REACT_APP_SERVER_API_URL}/review/${review.movie_id}`,
-      {
-        method: "DELETE",
-        headers: new Headers({
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${review.token}`,
-        }),
-      }
-    )
-      .then(() => review.fetchReviews())
-      .catch((err) => console.log(err));
-  };
-
-  const reviewMap = () => {
-    console.log("REVIEWS", review.reviews);
-    return review.reviews.map((userReview, index) => {
-      return (
-        <tr key={index}>
-          {/* <th scope="row">{userReview.id}</th> */}
-          <td>{userReview.review}</td>
-          <td><BeautyStars
-                      value={userReview.rating}
-                      size="18px"
-                      inactiveColor="#FFFFFF"
-                      activeColor="#000000"
-                    /></td>
-          <td>{userReview.favorite}</td>
-        </tr>
-      );
-    });
-  };
   return (
 
     <>
-    <Container>
-      <Row>
-        <Col>
-          {updateActive ? (
-            <ReviewCreate fetchReviews={fetchReviews} updateoff={updateOff} />
-          ) : (
-            <> </>
-          )}
-          <Button onClick={updateOn}>Click me to leave a review</Button>
-        </Col>
-        <Col></Col>
-      <h1>User Reviews</h1>
-      <Table>
-        {reviewMap()}
-      </Table>
-      </Row>
-      <Row>
-      
-        {/* {updateActive ? (
-          <ReviewEdit
-            reviewToUpdate={reviewToUpdate}
-            updateOff={updateOff}
-            // token={token}
-            fetchReviews={fetchReviews}
-          />
-        ) : (
-          <></>
-        )} */}
-      </Row>
-    </Container>
+      <Col key={review.id} xs={10}>
+        <div className="p-3 mt-3" style={{ border: "1px solid" }}>
+          <p>{review.review}</p>
+          <div className="d-flex justify-content-between">
+            <div>
+              <ReviewStars value={review.rating} />
+            </div>
+            <div>
+              by{" "}
+              {user && `${user.firstName} ${user.lastName}(${user.username})`}
+              {user && userContext.user.id === review.owner_id && (
+                <>
+                  {" "}
+                  |{" "}
+                  <a
+                    onClick={props.showEditModal}
+                    style={{ cursor: "pointer", textDecoration: "underline" }}
+                  >
+                    Edit
+                  </a>
+                </>
+              )}
+              {user && userContext.user.id === review.owner_id && (
+                <>
+                  {" "}
+                  |{" "}
+                  <a
+                    onClick={deleteReview}
+                    style={{ cursor: "pointer", textDecoration: "underline" }}
+                  >
+                    Delete
+                  </a>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </Col>
     </>
   );
 };

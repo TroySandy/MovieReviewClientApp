@@ -34,7 +34,6 @@ const SiteNavbar = (props) => {
           )}
         </Nav>
       </Navbar>
-      {userContext.isAuth ? <p>Hello {userContext.user.firstName}</p> : null}
     </>
   );
 };
