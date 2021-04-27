@@ -29,7 +29,7 @@ const ReviewIndex = (props) => {
     fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie/`, {
       method: "POST",
       body: JSON.stringify({
-        movie_id: movie_id,
+        movie_id: '460465',
       }),
       headers: new Headers({
         "Content-Type": "application/json",
@@ -54,18 +54,14 @@ const ReviewIndex = (props) => {
   return (
     <Container>
       <Row>
-        <Col>
-<<<<<<< HEAD:src/components/movies/movieIndex.jsx
-          {/* {updateActive ? <ReviewCreate fetchReviews={fetchReviews} updateoff={updateOff} owner_id={1} movie_id={123}/> : <> </>} */}
-=======
+        {/* <Col>
           {updateActive ? (
             <ReviewCreate fetchReviews={fetchReviews} updateoff={updateOff} />
           ) : (
             <> </>
           )}
->>>>>>> develop:src/components/review/ReviewIndex.jsx
           <Button onClick={updateOn}>Click me to leave a review</Button>
-        </Col>
+        </Col> */}
         <Col>
           <MovieDisplay
             reviews={reviews}

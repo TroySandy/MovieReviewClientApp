@@ -8,6 +8,7 @@ import { faStar as fullStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as emptyStar } from "@fortawesome/free-regular-svg-icons";
 import { faStarHalfAlt as halfStar } from "@fortawesome/free-solid-svg-icons";
 import BeautyStars from "beauty-stars";
+import ReviewIndex from '../review/ReviewIndex'
 
 const Movie = (props) => {
   const userContext = useContext(UserContext);
@@ -51,6 +52,7 @@ const Movie = (props) => {
                 width="100%"
                 src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
               />
+              
             </Col>
             <Col className="position-relative pl-3">
               <div
@@ -68,12 +70,7 @@ const Movie = (props) => {
                         return <FontAwesomeIcon icon={emptyStar} />;
                       }
                     })} */}
-                    <BeautyStars
-                      value={3.6}
-                      size="18px"
-                      inactiveColor="#FFFFFF"
-                      activeColor="#000000"
-                    />
+                    
                   </div>
                   <div className="float-right">Right</div>
                 </div>
@@ -81,6 +78,7 @@ const Movie = (props) => {
               <h2 className="text-center mt-5 px-3">{movie.title}</h2>
               <h6 className="text-center mb-5 px-3">{movie.tagline}</h6>
               <p className="px-3">{movie.overview}</p>
+              <ReviewIndex movie_id={movie.id}/>
             </Col>
           </Row>
           <hr />

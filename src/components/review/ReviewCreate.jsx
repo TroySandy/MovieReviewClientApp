@@ -3,11 +3,7 @@ import { Button, Form, FormGroup, Label, Input, CustomInput } from "reactstrap";
 import UserContext from "../../contexts/UserContext";
 
 const ReviewCreate = (props) => {
-<<<<<<< HEAD:src/components/movies/movieCreate.jsx
-  console.log(props);
-=======
   const userContext = useContext(UserContext);
->>>>>>> develop:src/components/review/ReviewCreate.jsx
   const [review, setReview] = useState("");
   const [rating, setRating] = useState("");
   const [favorite, setFavorite] = useState(false);
@@ -26,13 +22,8 @@ const ReviewCreate = (props) => {
         rating,
         favorite,
         watched,
-<<<<<<< HEAD:src/components/movies/movieCreate.jsx
-        movie_id: props.movie_id,
-        owner_id: props.owner_id,
-=======
-        movie_id: 643,
+        movie_id: 460465,
         owner_id: userContext.user.id,
->>>>>>> develop:src/components/review/ReviewCreate.jsx
       }),
       headers: new Headers({
         "Content-Type": "application/json",
@@ -55,11 +46,7 @@ const ReviewCreate = (props) => {
   return (
     <>
       <h2>Create Your Movie Review</h2>
-<<<<<<< HEAD:src/components/movies/movieCreate.jsx
-      <Form >
-=======
       <Form onSubmit={handleSubmit}>
->>>>>>> develop:src/components/review/ReviewCreate.jsx
         <div>
           <Label htmlFor="review" />
           <Input

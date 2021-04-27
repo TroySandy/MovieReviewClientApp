@@ -1,9 +1,10 @@
 import { Row, Col } from "react-bootstrap";
 import MovieCard from "./HomeMovieCard";
 
+
 const MovieDisplay = (props) => {
   return (
-    <Row noGutters className="pt-3">
+    <Row noGutters className="pt-3 viewRow">
       {props.results.map((movie) => {
         return (
           <Col xs={3}>
