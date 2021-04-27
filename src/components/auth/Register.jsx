@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import'./Register.css'
 
 const Register = (props) => {
   let [firstName, setFirstName] = useState("");
@@ -250,15 +251,18 @@ const Register = (props) => {
                     </Col>
                   </Form.Row>
                   <Form.Row>
-                    <Col>
-                      <Button
+                    <Col className='outer'>
+                      <button
+                        className="middle"
                         onClick={() => {
                           setValidated(true);
                           handleRegister();
                         }}
+                        
                       >
                         Register
-                      </Button>
+                        <span></span><span></span><span></span><span></span>
+                      </button>
                     </Col>
                   </Form.Row>
                 </Form>

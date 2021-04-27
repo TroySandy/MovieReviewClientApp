@@ -1,22 +1,25 @@
-import { useEffect, useContext, useState } from "react";
+import { Container, Row, Col, Form, Card } from "react-bootstrap";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router";
-import "./Movie.css";
-import ReviewStars from "./ReviewStars";
+import UserContext from "../../contexts/UserContext";
+import ReviewStars from "../movie/ReviewStars";
 import ReviewDisplay from "../review/ReviewDisplay";
 import ReviewCreate from "../review/ReviewCreate";
 import ReviewEdit from "../review/ReviewEdit";
-import { Modal, Col, Container, Row } from "react-bootstrap";
-import UserContext from "../../contexts/UserContext";
+import { Modal } from "react-bootstrap";
+// import MovieDisplay from "./HomeMovieDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye as eyeFull } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as heartFull } from "@fortawesome/free-solid-svg-icons";
+// import SimilarMovies from "./similarMovies";
+// import { faHeart as heartFull } from "@fortawesome/free-solid-svg-icons";
 
 function useForceUpdate() {
   const [value, setValue] = useState(0);
   return () => setValue((value) => value + 1);
 }
 
-const Movie = (props) => {
+const SimilarList = (props) => {
+  console.log(props);
   const forceUpdate = useForceUpdate();
   const { movie_id } = useParams();
   const userContext = useContext(UserContext);
@@ -45,7 +48,7 @@ const Movie = (props) => {
 
   useEffect(() => {
     fetchMovie();
-    fetchReviews();
+    // fetchReviews();
   }, []);
 
   useEffect(() => {
@@ -54,34 +57,36 @@ const Movie = (props) => {
 
   const fetchMovie = () => {
     fetch(
-      `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+      `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=similar`
     )
       .then((res) => res.json())
       .then((res) => {
         setMovie(res);
+        console.log(res);
       });
   };
+  console.log("movie", movie);
 
-  const fetchReviews = () => {
-    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie`, {
-      method: "POST",
-      body: JSON.stringify({ movie_id: movie_id }),
-      headers: new Headers({
-        "Content-Type": "application/json",
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setReviews([...res]);
+  // const fetchReviews = () => {
+  //   fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie`, {
+  //     method: "POST",
+  //     body: JSON.stringify({ movie_id: movie_id }),
+  //     headers: new Headers({
+  //       "Content-Type": "application/json",
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       setReviews([...res]);
 
-        setFavorite(
-          res.find((r) => r.owner_id === userContext.user.id && r.favorite)
-        );
-        setWatched(
-          res.find((r) => r.owner_id === userContext.user.id && r.watched)
-        );
-      });
-  };
+  //       setFavorite(
+  //         res.find((r) => r.owner_id === userContext.user.id && r.favorite)
+  //       );
+  //       setWatched(
+  //         res.find((r) => r.owner_id === userContext.user.id && r.watched)
+  //       );
+  //     });
+  // };
 
   return (
     <>
@@ -100,15 +105,16 @@ const Movie = (props) => {
                   color={watched ? "white" : "grey"}
                   icon={eyeFull}
                 />
-                <FontAwesomeIcon
-                  className="m-2"
-                  size="2x"
-                  color={favorite ? "red" : "grey"}
-                  icon={heartFull}
-                />
+                {/* <FontAwesomeIcon
+                    className="m-2"
+                    size="2x"
+                    color={favorite ? "red" : "grey"}
+                    icon={heartFull}
+                  /> */}
               </div>
             </Col>
             <Col className="position-relative pl-3">
+              <div></div>
               <div
                 className="position-absolute w-100 pr-3"
                 style={{ bottom: 0 }}
@@ -174,7 +180,7 @@ const Movie = (props) => {
                     key={review.id + review.updatedAt}
                     review={review}
                     showEditModal={handleEditOpen}
-                    fetchReviews={fetchReviews}
+                    // fetchReviews={fetchReviews}
                   />
                 );
               })
@@ -192,7 +198,7 @@ const Movie = (props) => {
       <Modal centered show={showCreateModal} onHide={handleCreateClose}>
         <Modal.Body>
           <ReviewCreate
-            fetchReviews={fetchReviews}
+            // fetchReviews={fetchReviews}
             movieId={movie_id}
             title={movie && movie.title}
             handleClose={handleCreateClose}
@@ -203,7 +209,7 @@ const Movie = (props) => {
       <Modal centered show={showEditModal} onHide={handleEditClose}>
         <Modal.Body>
           <ReviewEdit
-            fetchReviews={fetchReviews}
+            // fetchReviews={fetchReviews}
             review={
               reviews && reviews.find((r) => r.owner_id === userContext.user.id)
             }
@@ -216,4 +222,4 @@ const Movie = (props) => {
   );
 };
 
-export default Movie;
+export default SimilarList;
