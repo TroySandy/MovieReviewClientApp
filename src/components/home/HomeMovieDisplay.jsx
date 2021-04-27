@@ -6,7 +6,7 @@ const MovieDisplay = (props) => {
     <Row noGutters className="pt-3">
       {props.results.map((movie) => {
         return (
-          <Col xs={3}>
+          <Col key={movie.id} xs={3}>
             <MovieCard movie={movie} />
           </Col>
         );
