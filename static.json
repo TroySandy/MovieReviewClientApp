@@ -1,7 +1,16 @@
 {
+<<<<<<< HEAD
     "root": "build/",
     "clean_urls": false,
     "routes": {
         "/**": "index.html"
     }
 }
+=======
+  "root": "build/",
+  "clean-urls": false,
+  "routes": {
+    "/**": "index.html"
+  }
+}
+>>>>>>> develop

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import "./watch.css";
+import config from "../../config";
 
 const WatchedCard = (props) => {
   // console.log(props);
@@ -10,7 +11,7 @@ const WatchedCard = (props) => {
   useEffect(() => {
     fetch(
       // `${window.env.TMDB_API_URL}/movie/popular?region=US&api_key=${window.env.TMDB_API_KEY}`
-      `${process.env.REACT_APP_TMDB_API_URL}/movie/${props.movie.movie_id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=similar`
+      `${config.REACT_APP_TMDB_API_URL}/movie/${props.movie.movie_id}?api_key=${config.REACT_APP_TMDB_API_KEY}&append_to_response=similar`
     )
       .then((res) => res.json())
       .then((res) => setResults(res));

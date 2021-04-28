@@ -12,12 +12,14 @@ import {
   Row,
   OverlayTrigger,
   Tooltip,
+  Button,
 } from "react-bootstrap";
 import UserContext from "../../contexts/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye as eyeFull } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as heartFull } from "@fortawesome/free-solid-svg-icons";
 import SimilarMovies from "../similar/similarMovies";
+import config from "../../config";
 
 function useForceUpdate() {
   const [value, setValue] = useState(0);
@@ -62,7 +64,7 @@ const Movie = (props) => {
 
   const fetchMovie = () => {
     fetch(
-      `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=similar,credits`
+      `${config.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${config.REACT_APP_TMDB_API_KEY}&append_to_response=similar,credits`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -72,7 +74,7 @@ const Movie = (props) => {
   };
 console.log(movie);
   const fetchReviews = () => {
-    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie`, {
+    fetch(`${config.REACT_APP_SERVER_API_URL}/review/movie`, {
       method: "POST",
       body: JSON.stringify({ movie_id: movie_id }),
       headers: new Headers({
@@ -93,7 +95,7 @@ console.log(res);
 
         //fetch
         fetch(
-          `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}/reviews?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+          `${config.REACT_APP_TMDB_API_URL}/movie/${movie_id}/reviews?api_key=${config.REACT_APP_TMDB_API_KEY}`
         )
           .then((res) => res.json())
           .then((res) => {
@@ -124,7 +126,7 @@ console.log(res);
   return (
     <>
       {movie && (
-        <Container className="movie py-3 mt-5 bg-dark text-light" >
+        <Container className="movie py-3 mt-5 bg-dark text-light shadow rounded">
           <Row noGutters>
             <Col xs={6} className="position-relative">
               <img
@@ -152,7 +154,7 @@ console.log(res);
                 className="position-absolute w-100 pr-3"
                 style={{ bottom: 0 }}
               >
-                <div className="w100 px-3 d-flex justify-content-between">
+                <div className="w100 px-3 d-flex justify-content-center">
                   <div>
                     {movie.credits.cast.map((castMember, index) => {
                       if (index > 4) return;
@@ -237,7 +239,33 @@ console.log(res);
             <SimilarMovies movie={movie} />
           </Row>
           <hr />
-          <Row className="justify-content-center mb-3">
+          <Row className="justify-content-center my-5">
+            {userContext.isAuth ? (
+              <Col xs={9} className="mb-4" onClick={handleCreateOpen}>
+                {reviews &&
+                reviews.some((r) => r.owner_id === userContext.user.id) ? (
+                  <Button
+                    className="rounded-0"
+                    size="lg"
+                    variant="outline-light"
+                    block
+                  >
+                    Do you want to edit your review?
+                  </Button>
+                ) : (
+                  <Button
+                    className="rounded-0"
+                    size="lg"
+                    variant="outline-light"
+                    block
+                  >
+                    Have you seen this movie? Leave a review
+                  </Button>
+                )}
+              </Col>
+            ) : (
+              <div>Please login to leave a review.</div>
+            )}
             {reviews && reviews.length > 0 ? (
               reviews.map((review) => {
                 return (
