@@ -22,6 +22,7 @@ import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye as eyeFull } from "@fortawesome/free-solid-svg-icons";
 import SimilarMovies from "../similar/similarMovies";
+import config from "../../config";
 
 // import { faHeart as heartFull } from "@fortawesome/free-solid-svg-icons";
 
@@ -71,7 +72,7 @@ const WatchList = (props) => {
 
   const fetchCast = () => {
     fetch(
-      `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+      `${config.REACT_APP_TMDB_API_URL}/movie/${movie_id}/credits?api_key=${config.REACT_APP_TMDB_API_KEY}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -81,7 +82,7 @@ const WatchList = (props) => {
 
   const fetchMovie = () => {
     fetch(
-      `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=similar`
+      `${config.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${config.REACT_APP_TMDB_API_KEY}&append_to_response=similar`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -92,7 +93,7 @@ const WatchList = (props) => {
   // console.log("movie", movie);
 
   const fetchReviews = () => {
-    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie`, {
+    fetch(`//${config.REACT_APP_SERVER_API_URL}/review/movie`, {
       method: "POST",
       body: JSON.stringify({ movie_id: movie_id }),
       headers: new Headers({

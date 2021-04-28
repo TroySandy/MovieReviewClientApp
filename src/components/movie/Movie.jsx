@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye as eyeFull } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as heartFull } from "@fortawesome/free-solid-svg-icons";
 import SimilarMovies from "../similar/similarMovies";
+import config from "../../config";
 
 function useForceUpdate() {
   const [value, setValue] = useState(0);
@@ -62,7 +63,7 @@ const Movie = (props) => {
 
   const fetchMovie = () => {
     fetch(
-      `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=similar,credits`
+      `${config.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${config.REACT_APP_TMDB_API_KEY}&append_to_response=similar,credits`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -72,7 +73,7 @@ const Movie = (props) => {
   };
 
   const fetchReviews = () => {
-    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie`, {
+    fetch(`//${config.REACT_APP_SERVER_API_URL}/review/movie`, {
       method: "POST",
       body: JSON.stringify({ movie_id: movie_id }),
       headers: new Headers({
@@ -93,7 +94,7 @@ const Movie = (props) => {
 
         //fetch
         fetch(
-          `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}/reviews?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+          `${config.REACT_APP_TMDB_API_URL}/movie/${movie_id}/reviews?api_key=${config.REACT_APP_TMDB_API_KEY}`
         )
           .then((res) => res.json())
           .then((res) => {

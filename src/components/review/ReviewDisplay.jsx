@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Col } from "react-bootstrap";
 import UserContext from "../../contexts/UserContext";
 import ReviewStars from "../movie/ReviewStars";
+import config from "../../config";
 
 const MovieDisplay = (props) => {
   const userContext = useContext(UserContext);
@@ -9,7 +10,7 @@ const MovieDisplay = (props) => {
   const [review] = useState(props.review);
 
   const deleteReview = () => {
-    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/`, {
+    fetch(`//${config.REACT_APP_SERVER_API_URL}/review/`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -30,7 +31,7 @@ const MovieDisplay = (props) => {
     if (userContext.isAuth && userContext.user.id === review.owner_id) {
       setUser(userContext.user);
     } else {
-      fetch(`//${process.env.REACT_APP_SERVER_API_URL}/user/${review.owner_id}`)
+      fetch(`//${config.REACT_APP_SERVER_API_URL}/user/${review.owner_id}`)
         .then((res) => res.json())
         .then((res) => {
           console.log(res);
@@ -40,7 +41,6 @@ const MovieDisplay = (props) => {
   }, []);
 
   return (
-
     <>
       <Col key={review.id} xs={10}>
         <div className="p-3 mt-3" style={{ border: "1px solid" }}>

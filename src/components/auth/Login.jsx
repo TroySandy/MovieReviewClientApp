@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import UserContext from "../../contexts/UserContext";
 import "./Login.css";
+import config from "../../config";
 
 const Login = (props) => {
   let { setToken } = useContext(UserContext);
@@ -18,7 +19,7 @@ const Login = (props) => {
       password,
     };
 
-    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/user/login`, {
+    fetch(`//${config.REACT_APP_SERVER_API_URL}/user/login`, {
       method: "POST",
       body: JSON.stringify(fetchBody),
       headers: {

@@ -3,6 +3,7 @@ import "../home/Home.css";
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import WatchDisplay from "./WatchMovieDisplay";
+import config from "../../config";
 
 const WatchListView = (props) => {
   const [movieResults, setMovieResults] = useState([]);
@@ -11,7 +12,7 @@ const WatchListView = (props) => {
 
   useEffect(() => {
     if (userContext.isAuth) {
-      fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/watched`, {
+      fetch(`//${config.REACT_APP_SERVER_API_URL}/review/watched`, {
         method: "POST",
         body: JSON.stringify({ favorite: true }),
         headers: new Headers({

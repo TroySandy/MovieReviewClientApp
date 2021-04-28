@@ -5,6 +5,7 @@ import ReviewEdit from "./ReviewEdit";
 import MovieDisplay from "./ReviewDisplay";
 import UserContext from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
+import config from "../../config";
 
 const ReviewIndex = (props) => {
   const userContext = useContext(UserContext);
@@ -26,10 +27,10 @@ const ReviewIndex = (props) => {
   };
 
   const fetchReviews = () => {
-    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie/`, {
+    fetch(`//${config.REACT_APP_SERVER_API_URL}/review/movie/`, {
       method: "POST",
       body: JSON.stringify({
-        movie_id: '460465',
+        movie_id: "460465",
       }),
       headers: new Headers({
         "Content-Type": "application/json",
