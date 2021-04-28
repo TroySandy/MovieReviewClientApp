@@ -21,13 +21,15 @@ const Home = (props) => {
         `${process.env.REACT_APP_TMDB_API_URL}/trending/movie/week?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
       )
         .then((res) => res.json())
-        .then((res) => setMoviesResult(res.results));
+        .then((res) => setMoviesResult(res.results))
+        .catch((err) => console.log(err))
     } else {
       fetch(
         `${process.env.REACT_APP_TMDB_API_URL}/search/movie?region=US&query=${searchInput}&api_key=${process.env.REACT_APP_TMDB_API_KEY}`
       )
         .then((res) => res.json())
-        .then((res) => setMoviesResult(res.results));
+        .then((res) => setMoviesResult(res.results))
+        .catch((err) => console.log(err))
     }
   }, [searchInput]);
 
@@ -61,7 +63,8 @@ const Home = (props) => {
             <Row>
               <Col>
                 <Form.Control
-                  className="movie-search"
+                  className="movie-search btn-secondary" 
+                  id="search"
                   type="text"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}

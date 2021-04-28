@@ -6,7 +6,9 @@ import "./Login.css";
 
 const Login = (props) => {
   let { setToken } = useContext(UserContext);
+
   let [username, setUsername] = useState("");
+
   let [password, setPassword] = useState("");
   let [error, setError] = useState("");
 
@@ -44,7 +46,7 @@ const Login = (props) => {
 
   return (
     <>
-      <Container>
+      <Container className="mb-5">
         <Row className="justify-content-center pt-5">
           <Col xs={6}>
             <Card>
