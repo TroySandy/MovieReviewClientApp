@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import "./Register.css";
+import config from "../../config";
 
 const Register = (props) => {
   let [firstName, setFirstName] = useState("");
@@ -74,7 +75,7 @@ const Register = (props) => {
     let errs = runValidation();
 
     if (errs.length == 0) {
-      fetch(`//${process.env.REACT_APP_SERVER_API_URL}/user/register`, {
+      fetch(`${config.REACT_APP_SERVER_API_URL}/user/register`, {
         method: "POST",
         body: JSON.stringify(fetchBody),
         headers: {
@@ -105,9 +106,6 @@ const Register = (props) => {
   return (
     <>
       <Container>
-        {errors.map((e) => (
-          <div>{e}</div>
-        ))}
         <Row className="justify-content-center pt-5">
           <Col xs={7}>
             <Card>

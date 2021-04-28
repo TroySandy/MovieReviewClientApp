@@ -7,6 +7,7 @@ import { faEye as eyeEmpty } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as heartEmpty } from "@fortawesome/free-regular-svg-icons";
 import { faEye as eyeFull } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as heartFull } from "@fortawesome/free-solid-svg-icons";
+import config from "../../config";
 
 const ReviewEdit = (props) => {
   const userContext = useContext(UserContext);
@@ -19,7 +20,7 @@ const ReviewEdit = (props) => {
   const reviewUpdate = (e) => {
     e.preventDefault();
 
-    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/`, {
+    fetch(`${config.REACT_APP_SERVER_API_URL}/review/`, {
       method: "PUT",
       body: JSON.stringify({
         id: props.review.id,
@@ -92,7 +93,9 @@ const ReviewEdit = (props) => {
           </div>
         </div>
         <div className="d-flex justify-content-center">
-          <Button type="submit" variant="danger">Click to Submit Your Review!</Button>
+          <Button type="submit" variant="danger">
+            Click to Submit Your Review!
+          </Button>
         </div>
       </Form>
     </>

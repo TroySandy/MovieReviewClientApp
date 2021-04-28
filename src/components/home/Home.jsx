@@ -7,6 +7,7 @@ import UserContext from "../../contexts/UserContext";
 import MovieDisplay from "./HomeMovieDisplay";
 import ReviewIndex from "../review/ReviewIndex";
 import WatchListView from "../watchList/watchDisplay";
+import config from "../../config";
 
 const Home = (props) => {
   const [moviesResult, setMoviesResult] = useState([]);
@@ -18,14 +19,14 @@ const Home = (props) => {
     if (searchInput == "") {
       fetch(
         // `${window.env.TMDB_API_URL}/movie/popular?region=US&api_key=${window.env.TMDB_API_KEY}`
-        `${process.env.REACT_APP_TMDB_API_URL}/trending/movie/week?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+        `${config.REACT_APP_TMDB_API_URL}/trending/movie/week?api_key=${config.REACT_APP_TMDB_API_KEY}`
       )
         .then((res) => res.json())
         .then((res) => setMoviesResult(res.results))
         .catch((err) => console.log(err));
     } else {
       fetch(
-        `${process.env.REACT_APP_TMDB_API_URL}/search/movie?region=US&query=${searchInput}&api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+        `${config.REACT_APP_TMDB_API_URL}/search/movie?region=US&query=${searchInput}&api_key=${config.REACT_APP_TMDB_API_KEY}`
       )
         .then((res) => res.json())
         .then((res) => setMoviesResult(res.results))
