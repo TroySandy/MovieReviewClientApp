@@ -8,7 +8,7 @@ import {
   OverlayTrigger,
   Button,
   Image,
-  Tooltip
+  Tooltip,
 } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router";
@@ -137,70 +137,6 @@ const WatchList = (props) => {
                   /> */}
               </div>
             </Col>
-<<<<<<< HEAD
-            {cast.cast.map((castMember, index) => {
-              if (index > 4) return;
-              return (
-                <>
-                  <div>{castMember.character}</div>
-                  <div>{castMember.name}</div>
-                  <img
-                    src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${castMember.profile_path}`}
-                    alt=""
-                    width="50px"
-                    height="50px"
-                  />
-                </>
-              );
-            })}
-            <Col className="position-relative pl-3">
-              <div
-                className="position-absolute w-100 pr-3"
-                style={{ bottom: 0 }}
-              ></div>
-              <h2 className="text-center mt-5 px-3">{movie.title}</h2>
-              <h6 className="text-center mb-5 px-3">{movie.tagline}</h6>
-              <p className="px-3">{movie.overview}</p>
-
-              <div className="w100 px-3 d-flex justify-content-between">
-                <div className="">
-                  Genre: {movie.genres.map((g) => g.name).join("/")}
-                </div>
-                <div className="">
-                  Runtime:{" "}
-                  {`${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m`}
-                </div>
-              </div>
-
-              <div className="w100 px-3 d-flex justify-content-between">
-                <div className=""></div>
-                <div className=""></div>
-              </div>
-
-              <div className="w100 px-3 d-flex justify-content-between">
-                {userContext.isAuth ? (
-                  <div className="" onClick={handleCreateOpen}>
-                    {reviews &&
-                    reviews.some((r) => r.owner_id === userContext.user.id) ? (
-                      <a
-                        style={{
-                          textDecoration: "underline",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Edit your review
-                      </a>
-                    ) : (
-                      <a
-                        style={{
-                          textDecoration: "underline",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Leave a review
-                      </a>
-                    )}
-=======
             <Col className="position-relative pl-3">
               <div
                 className="position-absolute w-100 pr-3"
@@ -209,37 +145,36 @@ const WatchList = (props) => {
                 <h2 className="text-center mt-5 px-3">{movie.title}</h2>
                 <h6 className="text-center mb-5 px-3">{movie.tagline}</h6>
                 <p className="px-3">{movie.overview}</p>
-                <hr/>
-                               
-                  {cast.cast.map((castMember, index) => {
-                    if (index > 4) return;
-                    return (
-                      <>
-                        <OverlayTrigger
-                          placement="top"
-                          trigger='hover'
-                          overlay={
-                            <Tooltip id={"tooltip-top"}>
-                              <div>{castMember.character}</div>
-                              <div>Played By: {castMember.name}</div>
-                            </Tooltip>
-                          }
-                        >
-                          <img
-                            src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${castMember.profile_path}`}
-                            alt=""
-                            width="20%"
-                            // height="130px"
-                          />
-                        </OverlayTrigger>
-                      </>
-                    );
-                  })}
+                <hr />
+
+                {cast.cast.map((castMember, index) => {
+                  if (index > 4) return;
+                  return (
+                    <>
+                      <OverlayTrigger
+                        placement="top"
+                        trigger="hover"
+                        overlay={
+                          <Tooltip id={"tooltip-top"}>
+                            <div>{castMember.character}</div>
+                            <div>Played By: {castMember.name}</div>
+                          </Tooltip>
+                        }
+                      >
+                        <img
+                          src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${castMember.profile_path}`}
+                          alt=""
+                          width="20%"
+                          // height="130px"
+                        />
+                      </OverlayTrigger>
+                    </>
+                  );
+                })}
 
                 <div className="w100 px-3 d-flex justify-content-between">
                   <div className="">
                     Genre: {movie.genres.map((g) => g.name).join("/")}
->>>>>>> develop
                   </div>
                   <div className="">
                     Runtime:{" "}

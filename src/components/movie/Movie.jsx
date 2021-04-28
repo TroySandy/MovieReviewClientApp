@@ -5,7 +5,14 @@ import ReviewStars from "./ReviewStars";
 import ReviewDisplay from "../review/ReviewDisplay";
 import ReviewCreate from "../review/ReviewCreate";
 import ReviewEdit from "../review/ReviewEdit";
-import { Modal, Col, Container, Row } from "react-bootstrap";
+import {
+  Modal,
+  Col,
+  Container,
+  Row,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import UserContext from "../../contexts/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye as eyeFull } from "@fortawesome/free-solid-svg-icons";
@@ -145,6 +152,34 @@ const Movie = (props) => {
                 className="position-absolute w-100 pr-3"
                 style={{ bottom: 0 }}
               >
+                <div className="w100 px-3 d-flex justify-content-between">
+                  <div>
+                    {movie.credits.cast.map((castMember, index) => {
+                      if (index > 4) return;
+                      return (
+                        <>
+                          <OverlayTrigger
+                            placement="top"
+                            trigger="hover"
+                            overlay={
+                              <Tooltip id={"tooltip-top"}>
+                                <div>{castMember.character}</div>
+                                <div>Played By: {castMember.name}</div>
+                              </Tooltip>
+                            }
+                          >
+                            <img
+                              src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${castMember.profile_path}`}
+                              alt=""
+                              width="20%"
+                              // height="130px"
+                            />
+                          </OverlayTrigger>
+                        </>
+                      );
+                    })}
+                  </div>
+                </div>
                 <div className="w100 px-3 d-flex justify-content-between">
                   <div className="">
                     Genre: {movie.genres.map((g) => g.name).join("/")}
