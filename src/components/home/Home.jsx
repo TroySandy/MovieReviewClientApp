@@ -22,14 +22,14 @@ const Home = (props) => {
       )
         .then((res) => res.json())
         .then((res) => setMoviesResult(res.results))
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err));
     } else {
       fetch(
         `${process.env.REACT_APP_TMDB_API_URL}/search/movie?region=US&query=${searchInput}&api_key=${process.env.REACT_APP_TMDB_API_KEY}`
       )
         .then((res) => res.json())
         .then((res) => setMoviesResult(res.results))
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err));
     }
   }, [searchInput]);
 
@@ -53,7 +53,7 @@ const Home = (props) => {
   return (
     <>
       <Container
-        className="pt-5 body"
+        className="pt-5"
         //  onMouseOver={mousePosition()}
       >
         <Row noGutters>
@@ -63,7 +63,7 @@ const Home = (props) => {
             <Row>
               <Col>
                 <Form.Control
-                  className="movie-search btn-secondary" 
+                  className="movie-search btn-secondary"
                   id="search"
                   type="text"
                   value={searchInput}
@@ -72,9 +72,9 @@ const Home = (props) => {
                 />
               </Col>
             </Row>
-            <div>
+            {/* <div>
               <WatchListView />
-            </div>
+            </div> */}
             {/* Movie Display */}
             <MovieDisplay results={moviesResult} />
           </Col>

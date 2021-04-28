@@ -8,7 +8,7 @@ const SimilarCard = (props) => {
   return (
     <LinkContainer
       to={{
-        pathname: `/similar/${props.movie.id}`,
+        pathname: `/movie/${props.movie.id}`,
         state: {
           movie: props.movie,
         },

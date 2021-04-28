@@ -7,13 +7,12 @@ const SimilarDisplay = (props) => {
   return (
     <Row noGutters className="viewRow">
       {props.results.map((movie, index) => {
-        if(index >5)return;
+        if (index > 5) return;
         // console.log(movie);
         return (
           <Col key={movie.id} xs={2}>
             <Row>
-
-            <SimilarCard movie={movie} />
+              <SimilarCard movie={movie} />
             </Row>
           </Col>
         );
