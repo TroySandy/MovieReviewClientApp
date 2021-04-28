@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import UserContext from "../../contexts/UserContext";
+import "./Login.css";
 
 const Login = (props) => {
   let { setToken } = useContext(UserContext);
@@ -82,17 +83,33 @@ const Login = (props) => {
                   </Form.Group>
                   <Form.Row className="justify-content-center">
                     <LinkContainer to="/register">
-                      <Button className="mx-1" variant="danger" >Register</Button>
+                      <div className="registerBtnOut">
+                        <Button
+                          className="registerBtnMid"
+                          variant="outline-secondary"
+                        >
+                          Register<span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </Button>
+                      </div>
                     </LinkContainer>
-                    <Button
-                      className="mx-1"
-                      variant="danger"
-                      onClick={() => {
-                        handleLogin();
-                      }}
-                    >
-                      Sign In
-                    </Button>
+                    <div className="submitBtnOut">
+                      <Button
+                        className="submitBtnMid"
+                        onClick={() => {
+                          handleLogin();
+                        }}
+                        variant="outline-danger"
+                      >
+                        Sign In
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </Button>
+                    </div>
                   </Form.Row>
                 </Form>
               </Card.Body>

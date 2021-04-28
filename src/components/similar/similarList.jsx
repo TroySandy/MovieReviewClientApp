@@ -1,14 +1,16 @@
-import { useEffect, useContext, useState } from "react";
+import { Container, Row, Col, Form, Card } from "react-bootstrap";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router";
-import "./Movie.css";
-import ReviewStars from "./ReviewStars";
+import UserContext from "../../contexts/UserContext";
+import ReviewStars from "../movie/ReviewStars";
 import ReviewDisplay from "../review/ReviewDisplay";
 import ReviewCreate from "../review/ReviewCreate";
 import ReviewEdit from "../review/ReviewEdit";
-import { Modal, Col, Container, Row } from "react-bootstrap";
-import UserContext from "../../contexts/UserContext";
+import { Modal } from "react-bootstrap";
+// import MovieDisplay from "./HomeMovieDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye as eyeFull } from "@fortawesome/free-solid-svg-icons";
+import SimilarMovies from "./similarMovies";
 import { faHeart as heartFull } from "@fortawesome/free-solid-svg-icons";
 
 function useForceUpdate() {
@@ -16,7 +18,8 @@ function useForceUpdate() {
   return () => setValue((value) => value + 1);
 }
 
-const Movie = (props) => {
+const SimilarList = (props) => {
+  // console.log(props);
   const forceUpdate = useForceUpdate();
   const { movie_id } = useParams();
   const userContext = useContext(UserContext);
@@ -54,13 +57,15 @@ const Movie = (props) => {
 
   const fetchMovie = () => {
     fetch(
-      `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+      `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=similar`
     )
       .then((res) => res.json())
       .then((res) => {
         setMovie(res);
+        // console.log(res);
       });
   };
+  // console.log("movie", movie);
 
   const fetchReviews = () => {
     fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie`, {
@@ -72,8 +77,7 @@ const Movie = (props) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        //setReviews([...res]);
-        let realReviews = res;
+        setReviews([...res]);
 
         setFavorite(
           res.find((r) => r.owner_id === userContext.user.id && r.favorite)
@@ -81,47 +85,18 @@ const Movie = (props) => {
         setWatched(
           res.find((r) => r.owner_id === userContext.user.id && r.watched)
         );
-
-        //fetch
-        fetch(
-          `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}/reviews?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
-        )
-          .then((res) => res.json())
-          .then((res) => {
-            const reviewsArr = [];
-
-            res.results.map((r) => {
-              let reviewObj = {
-                id: r.id,
-                review: r.content,
-                rating: r.author_details.rating / 2,
-                updatedAt: r.updated_at,
-                user: {
-                  id: 9999999,
-                  firstName: "",
-                  lastName: "",
-                  username: r.author_details.username,
-                },
-              };
-
-              reviewsArr.push(reviewObj);
-            });
-
-            setReviews([...realReviews, ...reviewsArr]);
-          });
       });
   };
 
   return (
     <>
       {movie && (
-        <Container className="movie py-3 mt-5 btn-dark">
+        <Container className="similar py-3 mt-5">
           <Row noGutters>
             <Col xs={6} className="position-relative">
               <img
                 width="100%"
                 src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
-                id="image"
               />
               <div className="position-absolute" style={{ top: 0, right: 0 }}>
                 <FontAwesomeIcon
@@ -139,6 +114,7 @@ const Movie = (props) => {
               </div>
             </Col>
             <Col className="position-relative pl-3">
+              <div></div>
               <div
                 className="position-absolute w-100 pr-3"
                 style={{ bottom: 0 }}
@@ -192,7 +168,6 @@ const Movie = (props) => {
               <h2 className="text-center mt-5 px-3">{movie.title}</h2>
               <h6 className="text-center mb-5 px-3">{movie.tagline}</h6>
               <p className="px-3">{movie.overview}</p>
-
               {/* <ReviewIndex movie_id={movie.id}/> */}
             </Col>
           </Row>
@@ -205,7 +180,7 @@ const Movie = (props) => {
                     key={review.id + review.updatedAt}
                     review={review}
                     showEditModal={handleEditOpen}
-                    fetchReviews={fetchReviews}
+                    // fetchReviews={fetchReviews}
                   />
                 );
               })
@@ -217,6 +192,7 @@ const Movie = (props) => {
               </>
             )}
           </Row>
+          <SimilarMovies movie={movie} />
         </Container>
       )}
 
@@ -247,4 +223,4 @@ const Movie = (props) => {
   );
 };
 
-export default Movie;
+export default SimilarList;

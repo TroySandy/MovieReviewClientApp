@@ -22,6 +22,11 @@ const MovieDisplay = (props) => {
   };
 
   useEffect(() => {
+    if (props.review.user) {
+      setUser(props.review.user);
+      return;
+    }
+
     if (userContext.isAuth && userContext.user.id === review.owner_id) {
       setUser(userContext.user);
     } else {
@@ -35,6 +40,7 @@ const MovieDisplay = (props) => {
   }, []);
 
   return (
+
     <>
       <Col key={review.id} xs={10}>
         <div className="p-3 mt-3" style={{ border: "1px solid" }}>

@@ -1,13 +1,16 @@
 import { Row, Col } from "react-bootstrap";
-import MovieCard from "./HomeMovieCard";
+import WatchedCard from "./WatchMovieCard";
 
-const MovieDisplay = (props) => {
+const WatchDisplay = (props) => {
+  // console.log(props);
+
   return (
     <Row noGutters className="pt-3 viewRow">
       {props.results.map((movie) => {
+        // console.log(movie);
         return (
           <Col key={movie.id} xs={3}>
-            <MovieCard movie={movie} />
+            <WatchedCard movie={movie} />
           </Col>
         );
       })}
@@ -15,4 +18,4 @@ const MovieDisplay = (props) => {
   );
 };
 
-export default MovieDisplay;
+export default WatchDisplay;
