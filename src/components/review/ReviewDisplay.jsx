@@ -22,6 +22,11 @@ const MovieDisplay = (props) => {
   };
 
   useEffect(() => {
+    if (props.review.user) {
+      setUser(props.review.user);
+      return;
+    }
+
     if (userContext.isAuth && userContext.user.id === review.owner_id) {
       setUser(userContext.user);
     } else {
