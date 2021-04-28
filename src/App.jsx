@@ -12,7 +12,7 @@ import SimilarList from "./components/similar/similarList";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" className="grey">
       <UserContextProvider>
         <Header />
 

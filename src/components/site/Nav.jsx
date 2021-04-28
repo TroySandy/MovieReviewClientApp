@@ -1,20 +1,27 @@
 import { useContext } from "react";
-import { Nav, Navbar, NavLink } from "react-bootstrap";
+import { Nav, Navbar, NavLink, Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import UserContext from "../../contexts/UserContext";
+import '../site/Site.css'
+import Image from '../assests/memepopcorn.png'
 
 const SiteNavbar = (props) => {
   let userContext = useContext(UserContext);
 
   return (
     <>
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="danger" variant="dark">
         <LinkContainer to="/">
-          <Navbar.Brand className="mr-auto">Movie DB</Navbar.Brand>
+          <Navbar.Brand className="mr-auto" id="title">
+            PrintView
+            <img src={Image} 
+            width="100"
+            height="90"/></Navbar.Brand>
+          
         </LinkContainer>
         <Nav>
           <LinkContainer to="/">
-            <Nav.Link>Home</Nav.Link>
+            <Nav.Link id="home">Home</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/watched">
             <Nav.Link>Watchlist</Nav.Link>

@@ -67,9 +67,9 @@ const ReviewStars = (props) => {
 };
 
 ReviewStars.defaultProps = {
-  fullIcon: <FontAwesomeIcon icon={fullStar} />,
-  halfIcon: <FontAwesomeIcon icon={halfStar} />,
-  emptyIcon: <FontAwesomeIcon icon={emptyStar} />,
+  fullIcon: <FontAwesomeIcon className="stars" icon={fullStar} />,
+  halfIcon: <FontAwesomeIcon className="stars" icon={halfStar} />,
+  emptyIcon: <FontAwesomeIcon className="stars" icon={emptyStar} />,
   value: 2,
   maxStars: 5,
   color: "#000000",
