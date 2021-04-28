@@ -10,6 +10,7 @@ import UserContext from "../../contexts/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye as eyeFull } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as heartFull } from "@fortawesome/free-solid-svg-icons";
+import SimilarMovies from "../similar/similarMovies";
 
 function useForceUpdate() {
   const [value, setValue] = useState(0);
@@ -46,7 +47,7 @@ const Movie = (props) => {
   useEffect(() => {
     fetchMovie();
     fetchReviews();
-  }, []);
+  }, [movie_id]);
 
   useEffect(() => {
     forceUpdate();
@@ -54,10 +55,11 @@ const Movie = (props) => {
 
   const fetchMovie = () => {
     fetch(
-      `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+      `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=similar,credits`
     )
       .then((res) => res.json())
       .then((res) => {
+        console.log(res);
         setMovie(res);
       });
   };
@@ -195,6 +197,9 @@ const Movie = (props) => {
 
               {/* <ReviewIndex movie_id={movie.id}/> */}
             </Col>
+          </Row>
+          <Row>
+            <SimilarMovies movie={movie} />
           </Row>
           <hr />
           <Row className="justify-content-center mb-3">
