@@ -36,6 +36,7 @@ const WatchListView = (props) => {
       >
         <Row noGutters>
           {/* Main Content */}
+          <h2 className="text-light">Your favorite & watched movies...</h2>
           <Col xs={12} className="movieDisplay">
             <div>
               {/* <ReviewIndex movie_id="634" /> */}

@@ -61,7 +61,7 @@ const Home = (props) => {
           {/* Main Content */}
           <Col xs={12} className="movieDisplay">
             {/* Search */}
-            <Row>
+            <Row className="pb-3">
               <Col>
                 <Form.Control
                   className="movie-search btn-secondary"

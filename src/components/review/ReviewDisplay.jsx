@@ -46,9 +46,8 @@ const MovieDisplay = (props) => {
       <Col key={review.id} xs={10}>
         <div className="p-3 mt-3" style={{ border: "1px solid" }}>
           <p className="mb-0">
-            {extendedReview
-              ? review.review
-              : review.review.substring(0, 500) + "..."}
+            {extendedReview ? review.review : review.review.substring(0, 500)}
+            {review.review.length > 500 ? "..." : ""}
           </p>
           {review.review.length > 500 ? (
             <div className="pb-3 d-flex justify-content-end">
