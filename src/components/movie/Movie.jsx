@@ -124,7 +124,7 @@ const Movie = (props) => {
   return (
     <>
       {movie && (
-        <Container className="movie py-3 mt-5 btn-dark">
+        <Container className="movie py-3 mt-5 bg-dark text-light">
           <Row noGutters>
             <Col xs={6} className="position-relative">
               <img
