@@ -72,7 +72,7 @@ const Movie = (props) => {
         setMovie(res);
       });
   };
-
+console.log(movie);
   const fetchReviews = () => {
     fetch(`${config.REACT_APP_SERVER_API_URL}/review/movie`, {
       method: "POST",
@@ -85,7 +85,7 @@ const Movie = (props) => {
       .then((res) => {
         //setReviews([...res]);
         let realReviews = res;
-
+console.log(res);
         setFavorite(
           res.find((r) => r.owner_id === userContext.user.id && r.favorite)
         );
@@ -154,6 +154,7 @@ const Movie = (props) => {
                 className="position-absolute w-100 pr-3"
                 style={{ bottom: 0 }}
               >
+                    <h3 className="w100 d-flex justify-content-center pb-3">Main Cast Members</h3>
                 <div className="w100 px-3 d-flex justify-content-center pb-3">
                   <div>
                     {movie.credits.cast.map((castMember, index) => {
@@ -172,8 +173,9 @@ const Movie = (props) => {
                           >
                             <img
                               src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${castMember.profile_path}`}
-                              alt=""
-                              width="20%"
+                              alt="cast member picture"
+                              width="18%"
+                              className='mx-1 rounded shadow-lg'
                               // height="130px"
                             />
                           </OverlayTrigger>
