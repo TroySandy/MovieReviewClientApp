@@ -23,7 +23,7 @@ const WatchedCard = (props) => {
   return (
     <LinkContainer
       to={{
-        pathname: `/watched/${props.movie.movie_id}`,
+        pathname: `/movie/${props.movie.movie_id}`,
         state: {
           movie: props.movie,
         },

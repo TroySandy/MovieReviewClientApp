@@ -10,20 +10,20 @@ const WatchListView = (props) => {
   const userContext = useContext(UserContext);
 
   useEffect(() => {
-    // if(UserContext.isAuth){
-    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/watched`, {
-      method: "POST",
-      body: JSON.stringify({ favorite: true }),
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userContext.token}`,
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => setMovieResults(res));
-    // }else{
-    //   console.log('no movies');
-    // }
+    if (userContext.isAuth) {
+      fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/watched`, {
+        method: "POST",
+        body: JSON.stringify({ favorite: true }),
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userContext.token}`,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => setMovieResults(res));
+    } else {
+      props.history.push("/login");
+    }
   }, []);
   // console.log(movieResults);
   return (
@@ -41,11 +41,6 @@ const WatchListView = (props) => {
               <WatchDisplay results={movieResults} />
             </div>
           </Col>
-
-          {/* Sidebar */}
-          {/* <Col xs={3} style={{ paddingLeft: "5px" }}>
-              <HomeSidebar />
-            </Col> */}
         </Row>
       </Container>
     </>
