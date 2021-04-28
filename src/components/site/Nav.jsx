@@ -10,13 +10,13 @@ const SiteNavbar = (props) => {
 
   return (
     <>
-      <Navbar bg="danger" variant="dark">
+      <Navbar className="sticky-top" bg="danger" variant="dark">
         <LinkContainer to="/">
           <Navbar.Brand className="mr-auto" id="title">
             PrintView
             <img src={Image} 
-            width="100"
-            height="90"/></Navbar.Brand>
+            width="80"
+            height="60"/></Navbar.Brand>
           
         </LinkContainer>
         <Nav>
