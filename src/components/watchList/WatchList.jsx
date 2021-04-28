@@ -1,4 +1,15 @@
-import { Container, Row, Col, Form, Card } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Card,
+  Table,
+  OverlayTrigger,
+  Button,
+  Image,
+  Tooltip
+} from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router";
 import UserContext from "../../contexts/UserContext";
@@ -11,6 +22,7 @@ import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye as eyeFull } from "@fortawesome/free-solid-svg-icons";
 import SimilarMovies from "../similar/similarMovies";
+
 // import { faHeart as heartFull } from "@fortawesome/free-solid-svg-icons";
 
 function useForceUpdate() {
@@ -125,6 +137,7 @@ const WatchList = (props) => {
                   /> */}
               </div>
             </Col>
+<<<<<<< HEAD
             {cast.cast.map((castMember, index) => {
               if (index > 4) return;
               return (
@@ -187,41 +200,115 @@ const WatchList = (props) => {
                         Leave a review
                       </a>
                     )}
-                  </div>
-                ) : (
-                  <div>Please login to leave a review.</div>
-                )}
+=======
+            <Col className="position-relative pl-3">
+              <div
+                className="position-absolute w-100 pr-3"
+                // style={{ bottom: 0 }}
+              >
+                <h2 className="text-center mt-5 px-3">{movie.title}</h2>
+                <h6 className="text-center mb-5 px-3">{movie.tagline}</h6>
+                <p className="px-3">{movie.overview}</p>
+                <hr/>
+                               
+                  {cast.cast.map((castMember, index) => {
+                    if (index > 4) return;
+                    return (
+                      <>
+                        <OverlayTrigger
+                          placement="top"
+                          trigger='hover'
+                          overlay={
+                            <Tooltip id={"tooltip-top"}>
+                              <div>{castMember.character}</div>
+                              <div>Played By: {castMember.name}</div>
+                            </Tooltip>
+                          }
+                        >
+                          <img
+                            src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${castMember.profile_path}`}
+                            alt=""
+                            width="20%"
+                            // height="130px"
+                          />
+                        </OverlayTrigger>
+                      </>
+                    );
+                  })}
 
-                <div className="">
-                  <ReviewStars showNumerical value={movie.vote_average / 2} />
+                <div className="w100 px-3 d-flex justify-content-between">
+                  <div className="">
+                    Genre: {movie.genres.map((g) => g.name).join("/")}
+>>>>>>> develop
+                  </div>
+                  <div className="">
+                    Runtime:{" "}
+                    {`${Math.floor(movie.runtime / 60)}h ${
+                      movie.runtime % 60
+                    }m`}
+                  </div>
+                </div>
+                <div className="w100 px-3 d-flex justify-content-between">
+                  {userContext.isAuth ? (
+                    <div className="" onClick={handleCreateOpen}>
+                      {reviews &&
+                      reviews.some(
+                        (r) => r.owner_id === userContext.user.id
+                      ) ? (
+                        <a
+                          style={{
+                            textDecoration: "underline",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Edit your review
+                        </a>
+                      ) : (
+                        <a
+                          style={{
+                            textDecoration: "underline",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Leave a review
+                        </a>
+                      )}
+                    </div>
+                  ) : (
+                    <div>Please login to leave a review.</div>
+                  )}
+
+                  <div className="">
+                    <ReviewStars showNumerical value={movie.vote_average / 2} />
+                  </div>
                 </div>
               </div>
               {/* <ReviewIndex movie_id={movie.id}/> */}
               <hr />
-              <Row className="justify-content-center mb-3">
-                {reviews && reviews.length > 0 ? (
-                  reviews.map((review) => {
-                    return (
-                      <ReviewDisplay
-                        key={review.id + review.updatedAt}
-                        review={review}
-                        showEditModal={handleEditOpen}
-                        fetchReviews={fetchReviews}
-                      />
-                    );
-                  })
-                ) : (
-                  <>
-                    <h3 className="p-5">
-                      There are no reviews on this movie. Be the first?
-                    </h3>
-                  </>
-                )}
-              </Row>
             </Col>
           </Row>
           {console.log(movie)}
           <hr />
+          <Row className="justify-content-center mb-3">
+            {reviews && reviews.length > 0 ? (
+              reviews.map((review) => {
+                return (
+                  <ReviewDisplay
+                    key={review.id + review.updatedAt}
+                    review={review}
+                    showEditModal={handleEditOpen}
+                    fetchReviews={fetchReviews}
+                  />
+                );
+              })
+            ) : (
+              <>
+                <h3 className="p-5">
+                  There are no reviews on this movie. Be the first?
+                </h3>
+              </>
+            )}
+          </Row>
           <Container>
             <SimilarMovies movie={movie} />
           </Container>
