@@ -154,7 +154,7 @@ const Movie = (props) => {
                 className="position-absolute w-100 pr-3"
                 style={{ bottom: 0 }}
               >
-                <div className="w100 px-3 d-flex justify-content-center">
+                <div className="w100 px-3 d-flex justify-content-center pb-3">
                   <div>
                     {movie.credits.cast.map((castMember, index) => {
                       if (index > 4) return;
@@ -235,7 +235,7 @@ const Movie = (props) => {
               {/* <ReviewIndex movie_id={movie.id}/> */}
             </Col>
           </Row>
-          <Row>
+          <Row className="mx-3">
             <SimilarMovies movie={movie} />
           </Row>
           <hr />
@@ -264,7 +264,19 @@ const Movie = (props) => {
                 )}
               </Col>
             ) : (
-              <div>Please login to leave a review.</div>
+              <Col xs={9}>
+                <Button
+                  className="rounded-0"
+                  size="lg"
+                  variant="outline-light"
+                  block
+                  onClick={() => {
+                    props.history.push("/login");
+                  }}
+                >
+                  Please login to review this movie.
+                </Button>
+              </Col>
             )}
             {reviews && reviews.length > 0 ? (
               reviews.map((review) => {
