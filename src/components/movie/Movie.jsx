@@ -12,6 +12,7 @@ import {
   Row,
   OverlayTrigger,
   Tooltip,
+  Button,
 } from "react-bootstrap";
 import UserContext from "../../contexts/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -73,7 +74,7 @@ const Movie = (props) => {
   };
 
   const fetchReviews = () => {
-    fetch(`//${config.REACT_APP_SERVER_API_URL}/review/movie`, {
+    fetch(`${config.REACT_APP_SERVER_API_URL}/review/movie`, {
       method: "POST",
       body: JSON.stringify({ movie_id: movie_id }),
       headers: new Headers({
@@ -238,7 +239,33 @@ const Movie = (props) => {
             <SimilarMovies movie={movie} />
           </Row>
           <hr />
-          <Row className="justify-content-center mb-3">
+          <Row className="justify-content-center my-5">
+            {userContext.isAuth ? (
+              <Col xs={9} className="mb-4" onClick={handleCreateOpen}>
+                {reviews &&
+                reviews.some((r) => r.owner_id === userContext.user.id) ? (
+                  <Button
+                    className="rounded-0"
+                    size="lg"
+                    variant="outline-light"
+                    block
+                  >
+                    Do you want to edit your review?
+                  </Button>
+                ) : (
+                  <Button
+                    className="rounded-0"
+                    size="lg"
+                    variant="outline-light"
+                    block
+                  >
+                    Have you seen this movie? Leave a review
+                  </Button>
+                )}
+              </Col>
+            ) : (
+              <div>Please login to leave a review.</div>
+            )}
             {reviews && reviews.length > 0 ? (
               reviews.map((review) => {
                 return (

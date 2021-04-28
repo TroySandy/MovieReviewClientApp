@@ -19,7 +19,7 @@ const Login = (props) => {
       password,
     };
 
-    fetch(`//${config.REACT_APP_SERVER_API_URL}/user/login`, {
+    fetch(`${config.REACT_APP_SERVER_API_URL}/user/login`, {
       method: "POST",
       body: JSON.stringify(fetchBody),
       headers: {

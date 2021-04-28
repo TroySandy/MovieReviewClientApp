@@ -12,7 +12,7 @@ const WatchListView = (props) => {
 
   useEffect(() => {
     if (userContext.isAuth) {
-      fetch(`//${config.REACT_APP_SERVER_API_URL}/review/watched`, {
+      fetch(`${config.REACT_APP_SERVER_API_URL}/review/watched`, {
         method: "POST",
         body: JSON.stringify({ favorite: true }),
         headers: new Headers({

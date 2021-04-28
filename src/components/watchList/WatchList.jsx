@@ -93,7 +93,7 @@ const WatchList = (props) => {
   // console.log("movie", movie);
 
   const fetchReviews = () => {
-    fetch(`//${config.REACT_APP_SERVER_API_URL}/review/movie`, {
+    fetch(`${config.REACT_APP_SERVER_API_URL}/review/movie`, {
       method: "POST",
       body: JSON.stringify({ movie_id: movie_id }),
       headers: new Headers({

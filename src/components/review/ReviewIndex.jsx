@@ -27,7 +27,7 @@ const ReviewIndex = (props) => {
   };
 
   const fetchReviews = () => {
-    fetch(`//${config.REACT_APP_SERVER_API_URL}/review/movie/`, {
+    fetch(`${config.REACT_APP_SERVER_API_URL}/review/movie/`, {
       method: "POST",
       body: JSON.stringify({
         movie_id: "460465",

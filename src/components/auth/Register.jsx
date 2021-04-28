@@ -75,7 +75,7 @@ const Register = (props) => {
     let errs = runValidation();
 
     if (errs.length == 0) {
-      fetch(`//${config.REACT_APP_SERVER_API_URL}/user/register`, {
+      fetch(`${config.REACT_APP_SERVER_API_URL}/user/register`, {
         method: "POST",
         body: JSON.stringify(fetchBody),
         headers: {

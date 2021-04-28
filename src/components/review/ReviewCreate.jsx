@@ -21,7 +21,7 @@ const ReviewCreate = (props) => {
     console.log(review, rating, favorite, watched, movie_id);
     e.preventDefault();
 
-    fetch(`//${config.REACT_APP_SERVER_API_URL}/review/`, {
+    fetch(`${config.REACT_APP_SERVER_API_URL}/review/`, {
       method: "POST",
       body: JSON.stringify({
         review,

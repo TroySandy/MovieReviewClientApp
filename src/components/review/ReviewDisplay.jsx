@@ -8,9 +8,10 @@ const MovieDisplay = (props) => {
   const userContext = useContext(UserContext);
   const [user, setUser] = useState(null);
   const [review] = useState(props.review);
+  const [extendedReview, setExtendedReview] = useState(false);
 
   const deleteReview = () => {
-    fetch(`//${config.REACT_APP_SERVER_API_URL}/review/`, {
+    fetch(`${config.REACT_APP_SERVER_API_URL}/review/`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -31,7 +32,7 @@ const MovieDisplay = (props) => {
     if (userContext.isAuth && userContext.user.id === review.owner_id) {
       setUser(userContext.user);
     } else {
-      fetch(`//${config.REACT_APP_SERVER_API_URL}/user/${review.owner_id}`)
+      fetch(`${config.REACT_APP_SERVER_API_URL}/user/${review.owner_id}`)
         .then((res) => res.json())
         .then((res) => {
           console.log(res);
@@ -44,7 +45,30 @@ const MovieDisplay = (props) => {
     <>
       <Col key={review.id} xs={10}>
         <div className="p-3 mt-3" style={{ border: "1px solid" }}>
-          <p>{review.review}</p>
+          <p className="mb-0">
+            {extendedReview
+              ? review.review
+              : review.review.substring(0, 500) + "..."}
+          </p>
+          {review.review.length > 500 ? (
+            <div className="pb-3 d-flex justify-content-end">
+              {extendedReview ? (
+                <a
+                  onClick={() => setExtendedReview(false)}
+                  style={{ cursor: "pointer", textDecoration: "underline" }}
+                >
+                  Show Less...
+                </a>
+              ) : (
+                <a
+                  onClick={() => setExtendedReview(true)}
+                  style={{ cursor: "pointer", textDecoration: "underline" }}
+                >
+                  Show More...
+                </a>
+              )}
+            </div>
+          ) : null}
           <div className="d-flex justify-content-between">
             <div>
               <ReviewStars value={review.rating} />
@@ -52,30 +76,34 @@ const MovieDisplay = (props) => {
             <div>
               by{" "}
               {user && `${user.firstName} ${user.lastName}(${user.username})`}
-              {user && userContext.user.id === review.owner_id && (
-                <>
-                  {" "}
-                  |{" "}
-                  <a
-                    onClick={props.showEditModal}
-                    style={{ cursor: "pointer", textDecoration: "underline" }}
-                  >
-                    Edit
-                  </a>
-                </>
-              )}
-              {user && userContext.user.id === review.owner_id && (
-                <>
-                  {" "}
-                  |{" "}
-                  <a
-                    onClick={deleteReview}
-                    style={{ cursor: "pointer", textDecoration: "underline" }}
-                  >
-                    Delete
-                  </a>
-                </>
-              )}
+              {!props.review.user &&
+                user &&
+                userContext.user.id === review.owner_id && (
+                  <>
+                    {" "}
+                    |{" "}
+                    <a
+                      onClick={props.showEditModal}
+                      style={{ cursor: "pointer", textDecoration: "underline" }}
+                    >
+                      Edit
+                    </a>
+                  </>
+                )}
+              {!props.review.user &&
+                user &&
+                userContext.user.id === review.owner_id && (
+                  <>
+                    {" "}
+                    |{" "}
+                    <a
+                      onClick={deleteReview}
+                      style={{ cursor: "pointer", textDecoration: "underline" }}
+                    >
+                      Delete
+                    </a>
+                  </>
+                )}
             </div>
           </div>
         </div>

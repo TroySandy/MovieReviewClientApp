@@ -20,7 +20,7 @@ const ReviewEdit = (props) => {
   const reviewUpdate = (e) => {
     e.preventDefault();
 
-    fetch(`//${config.REACT_APP_SERVER_API_URL}/review/`, {
+    fetch(`${config.REACT_APP_SERVER_API_URL}/review/`, {
       method: "PUT",
       body: JSON.stringify({
         id: props.review.id,
