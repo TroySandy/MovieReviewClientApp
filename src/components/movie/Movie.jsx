@@ -124,7 +124,7 @@ const Movie = (props) => {
   return (
     <>
       {movie && (
-        <Container className="movie py-3 mt-5 btn-dark">
+        <Container className="movie py-3 mt-5 bg-dark text-light shadow rounded">
           <Row noGutters>
             <Col xs={6} className="position-relative">
               <img
@@ -152,7 +152,7 @@ const Movie = (props) => {
                 className="position-absolute w-100 pr-3"
                 style={{ bottom: 0 }}
               >
-                <div className="w100 px-3 d-flex justify-content-between">
+                <div className="w100 px-3 d-flex justify-content-center">
                   <div>
                     {movie.credits.cast.map((castMember, index) => {
                       if (index > 4) return;
