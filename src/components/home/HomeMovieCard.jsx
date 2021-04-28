@@ -20,7 +20,7 @@ const MovieCard = (props) => {
           src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${props.movie.poster_path}`}
           className='img'
         />
-        {/* <h6 className="text-center movie-card-title">{props.movie.title}</h6> */}
+        <h6 className="text-center movie-card-title">{props.movie.title}</h6>
         {/* <p className="text-center movie-card-title overflow-hidden" style={{maxHeight: '3.5rem'}}>{props.movie.overview}</p> */}
       </div>
     </LinkContainer>

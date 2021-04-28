@@ -70,7 +70,7 @@ const Home = (props) => {
               </Col>
             </Row>
             <div>
-              {/* <ReviewIndex movie_id="634" /> */}
+
               <WatchListView />
             </div>
             {/* Movie Display */}
@@ -78,9 +78,9 @@ const Home = (props) => {
           </Col>
 
           {/* Sidebar */}
-          {/* <Col xs={3} style={{ paddingLeft: "5px" }}>
+          <Col xs={3} style={{ paddingLeft: "5px" }}>
             <HomeSidebar />
-          </Col> */}
+          </Col>
         </Row>
       </Container>
     </>

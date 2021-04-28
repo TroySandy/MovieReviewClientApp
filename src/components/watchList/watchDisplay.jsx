@@ -30,7 +30,7 @@ const WatchListView = (props) => {
     <>
       {" "}
       <Container
-        className="pt-5 body"
+        className="pt-5 watch"
         //  onMouseOver={mousePosition()}
       >
         <Row noGutters>

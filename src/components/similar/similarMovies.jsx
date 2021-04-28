@@ -14,12 +14,12 @@ const SimilarMovies = (props) => {
     <>
       {" "}
       <Container
-        className="pt-5 body"
+        className="pt-5 watch"
         //  onMouseOver={mousePosition()}
       >
         <Row noGutters>
           {/* Main Content */}
-          <Col xs={12} className="movieDisplay">
+          <Col xs={12} className="similarDisplay">
             <div>
               {/* <ReviewIndex movie_id="634" /> */}
               <SimilarDisplay results={results} />

@@ -10,8 +10,8 @@ import { Modal } from "react-bootstrap";
 // import MovieDisplay from "./HomeMovieDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye as eyeFull } from "@fortawesome/free-solid-svg-icons";
-// import SimilarMovies from "./similarMovies";
-// import { faHeart as heartFull } from "@fortawesome/free-solid-svg-icons";
+import SimilarMovies from "./similarMovies";
+import { faHeart as heartFull } from "@fortawesome/free-solid-svg-icons";
 
 function useForceUpdate() {
   const [value, setValue] = useState(0);
@@ -48,7 +48,7 @@ const SimilarList = (props) => {
 
   useEffect(() => {
     fetchMovie();
-    // fetchReviews();
+    fetchReviews();
   }, []);
 
   useEffect(() => {
@@ -67,31 +67,31 @@ const SimilarList = (props) => {
   };
   console.log("movie", movie);
 
-  // const fetchReviews = () => {
-  //   fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie`, {
-  //     method: "POST",
-  //     body: JSON.stringify({ movie_id: movie_id }),
-  //     headers: new Headers({
-  //       "Content-Type": "application/json",
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       setReviews([...res]);
+  const fetchReviews = () => {
+    fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie`, {
+      method: "POST",
+      body: JSON.stringify({ movie_id: movie_id }),
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setReviews([...res]);
 
-  //       setFavorite(
-  //         res.find((r) => r.owner_id === userContext.user.id && r.favorite)
-  //       );
-  //       setWatched(
-  //         res.find((r) => r.owner_id === userContext.user.id && r.watched)
-  //       );
-  //     });
-  // };
+        setFavorite(
+          res.find((r) => r.owner_id === userContext.user.id && r.favorite)
+        );
+        setWatched(
+          res.find((r) => r.owner_id === userContext.user.id && r.watched)
+        );
+      });
+  };
 
   return (
     <>
       {movie && (
-        <Container className="movie py-3 mt-5">
+        <Container className="similar py-3 mt-5">
           <Row noGutters>
             <Col xs={6} className="position-relative">
               <img
@@ -105,12 +105,12 @@ const SimilarList = (props) => {
                   color={watched ? "white" : "grey"}
                   icon={eyeFull}
                 />
-                {/* <FontAwesomeIcon
-                    className="m-2"
-                    size="2x"
-                    color={favorite ? "red" : "grey"}
-                    icon={heartFull}
-                  /> */}
+                <FontAwesomeIcon
+                  className="m-2"
+                  size="2x"
+                  color={favorite ? "red" : "grey"}
+                  icon={heartFull}
+                />
               </div>
             </Col>
             <Col className="position-relative pl-3">
@@ -192,13 +192,14 @@ const SimilarList = (props) => {
               </>
             )}
           </Row>
+          <SimilarMovies movie={movie} />
         </Container>
       )}
 
       <Modal centered show={showCreateModal} onHide={handleCreateClose}>
         <Modal.Body>
           <ReviewCreate
-            // fetchReviews={fetchReviews}
+            fetchReviews={fetchReviews}
             movieId={movie_id}
             title={movie && movie.title}
             handleClose={handleCreateClose}
@@ -209,7 +210,7 @@ const SimilarList = (props) => {
       <Modal centered show={showEditModal} onHide={handleEditClose}>
         <Modal.Body>
           <ReviewEdit
-            // fetchReviews={fetchReviews}
+            fetchReviews={fetchReviews}
             review={
               reviews && reviews.find((r) => r.owner_id === userContext.user.id)
             }

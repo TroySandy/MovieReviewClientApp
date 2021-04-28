@@ -20,7 +20,7 @@ const Movie = (props) => {
   const forceUpdate = useForceUpdate();
   const { movie_id } = useParams();
   const userContext = useContext(UserContext);
-
+const [cast, setCast] = useState([])
   const [movie, setMovie] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [showCreateModal, setCreateShowModal] = useState(false);
@@ -44,6 +44,7 @@ const Movie = (props) => {
   const handleEditOpen = () => setShowEditModal(true);
 
   useEffect(() => {
+    fetchCast()
     fetchMovie();
     fetchReviews();
   }, []);
@@ -59,6 +60,16 @@ const Movie = (props) => {
       .then((res) => res.json())
       .then((res) => {
         setMovie(res);
+      });
+  };
+  const fetchCast = () => {
+    fetch(
+      `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        setCast(res);
+
       });
   };
 
@@ -162,6 +173,16 @@ const Movie = (props) => {
               <h2 className="text-center mt-5 px-3">{movie.title}</h2>
               <h6 className="text-center mb-5 px-3">{movie.tagline}</h6>
               <p className="px-3">{movie.overview}</p>
+              {/* {cast.map((castMember, index) => {
+                if(index > 4)return;
+                return<>
+            <div>{castMember.character}</div>
+            <div>{castMember.name}</div>
+            <img src="" alt=""/>
+            </>
+              })} */}
+            
+
               {/* <ReviewIndex movie_id={movie.id}/> */}
             </Col>
           </Row>
@@ -188,6 +209,7 @@ const Movie = (props) => {
           </Row>
         </Container>
       )}
+      
 
       <Modal centered show={showCreateModal} onHide={handleCreateClose}>
         <Modal.Body>

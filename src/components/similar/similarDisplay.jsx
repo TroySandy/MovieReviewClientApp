@@ -5,12 +5,16 @@ const SimilarDisplay = (props) => {
   console.log(props);
 
   return (
-    <Row noGutters className="pt-3 viewRow">
-      {props.results.map((movie) => {
+    <Row noGutters className="viewRow">
+      {props.results.map((movie, index) => {
+        if(index >5)return;
         console.log(movie);
         return (
-          <Col key={movie.id} xs={3}>
+          <Col key={movie.id} xs={2}>
+            <Row>
+
             <SimilarCard movie={movie} />
+            </Row>
           </Col>
         );
       })}

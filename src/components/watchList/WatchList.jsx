@@ -91,7 +91,7 @@ const WatchList = (props) => {
   return (
     <>
       {movie && (
-        <Container className="movie py-3 mt-5">
+        <Container className="watch py-3 mt-5">
           <Row noGutters>
             <Col xs={6} className="position-relative">
               <img
@@ -119,7 +119,12 @@ const WatchList = (props) => {
                 className="position-absolute w-100 pr-3"
                 style={{ bottom: 0 }}
               >
-                <div className="w100 px-3 d-flex justify-content-between">
+
+              </div>
+              <h2 className="text-center mt-5 px-3">{movie.title}</h2>
+              <h6 className="text-center mb-5 px-3">{movie.tagline}</h6>
+              <p className="px-3">{movie.overview}</p>
+              <div className="w100 px-3 d-flex justify-content-between">
                   <div className="">
                     Genre: {movie.genres.map((g) => g.name).join("/")}
                   </div>
@@ -164,13 +169,7 @@ const WatchList = (props) => {
                     <ReviewStars showNumerical value={movie.vote_average / 2} />
                   </div>
                 </div>
-              </div>
-              <h2 className="text-center mt-5 px-3">{movie.title}</h2>
-              <h6 className="text-center mb-5 px-3">{movie.tagline}</h6>
-              <p className="px-3">{movie.overview}</p>
               {/* <ReviewIndex movie_id={movie.id}/> */}
-            </Col>
-          </Row>
           <hr />
           <Row className="justify-content-center mb-3">
             {reviews && reviews.length > 0 ? (
@@ -192,7 +191,14 @@ const WatchList = (props) => {
               </>
             )}
           </Row>
+            </Col>
+          </Row>
+          {console.log(movie)}
+          <hr/>
+          <Container >
+
           <SimilarMovies movie={movie} />
+          </Container>
         </Container>
       )}
 
