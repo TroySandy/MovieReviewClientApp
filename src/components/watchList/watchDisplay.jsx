@@ -25,7 +25,7 @@ const WatchListView = (props) => {
     //   console.log('no movies');
     // }
   }, []);
-  console.log(movieResults);
+  // console.log(movieResults);
   return (
     <>
       {" "}

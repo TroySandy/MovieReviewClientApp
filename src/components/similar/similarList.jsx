@@ -19,7 +19,7 @@ function useForceUpdate() {
 }
 
 const SimilarList = (props) => {
-  console.log(props);
+  // console.log(props);
   const forceUpdate = useForceUpdate();
   const { movie_id } = useParams();
   const userContext = useContext(UserContext);
@@ -62,10 +62,10 @@ const SimilarList = (props) => {
       .then((res) => res.json())
       .then((res) => {
         setMovie(res);
-        console.log(res);
+        // console.log(res);
       });
   };
-  console.log("movie", movie);
+  // console.log("movie", movie);
 
   const fetchReviews = () => {
     fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie`, {

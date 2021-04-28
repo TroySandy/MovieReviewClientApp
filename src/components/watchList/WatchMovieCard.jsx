@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import "./watched.css";
+import "./watch.css";
 
 const WatchedCard = (props) => {
-  console.log(props);
+  // console.log(props);
   const [results, setResults] = useState([]);
 
   useEffect(() => {
@@ -16,10 +16,10 @@ const WatchedCard = (props) => {
       .then((res) => setResults(res));
   }, []);
 
-  console.log(results);
-  console.log(
-    `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${props.movie.backdrop_path}`
-  );
+  // console.log(results);
+  // console.log(
+  //   `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${props.movie.backdrop_path}`
+  // );
   return (
     <LinkContainer
       to={{

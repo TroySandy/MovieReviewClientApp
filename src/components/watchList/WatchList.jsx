@@ -19,7 +19,7 @@ function useForceUpdate() {
 }
 
 const WatchList = (props) => {
-  console.log(props);
+  // console.log(props);
   const forceUpdate = useForceUpdate();
   const { movie_id } = useParams();
   const userContext = useContext(UserContext);
@@ -30,6 +30,7 @@ const WatchList = (props) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [watched, setWatched] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [cast, setCast] = useState([]);
 
   const handleCreateClose = () => setCreateShowModal(false);
   const handleCreateOpen = () => {
@@ -47,6 +48,7 @@ const WatchList = (props) => {
   const handleEditOpen = () => setShowEditModal(true);
 
   useEffect(() => {
+    fetchCast();
     fetchMovie();
     fetchReviews();
   }, []);
@@ -55,6 +57,16 @@ const WatchList = (props) => {
     forceUpdate();
   }, [reviews]);
 
+  const fetchCast = () => {
+    fetch(
+      `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        setCast(res);
+      });
+  };
+
   const fetchMovie = () => {
     fetch(
       `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=similar`
@@ -62,10 +74,10 @@ const WatchList = (props) => {
       .then((res) => res.json())
       .then((res) => {
         setMovie(res);
-        console.log(res);
+        // console.log(res);
       });
   };
-  console.log("movie", movie);
+  // console.log("movie", movie);
 
   const fetchReviews = () => {
     fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie`, {
@@ -114,90 +126,97 @@ const WatchList = (props) => {
               </div>
             </Col>
             <Col className="position-relative pl-3">
-              <div></div>
+              {cast.cast.map((castMember, index) => {
+                if (index > 4) return;
+                return (
+                  <>
+                    <div>{castMember.character}</div>
+                    <div>{castMember.name}</div>
+                    <img
+                      src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${castMember.profile_path}`}
+                      alt=""
+                      width="50px"
+                    />
+                  </>
+                );
+              })}
+
               <div
                 className="position-absolute w-100 pr-3"
                 style={{ bottom: 0 }}
-              >
-
-              </div>
+              ></div>
               <h2 className="text-center mt-5 px-3">{movie.title}</h2>
               <h6 className="text-center mb-5 px-3">{movie.tagline}</h6>
               <p className="px-3">{movie.overview}</p>
               <div className="w100 px-3 d-flex justify-content-between">
-                  <div className="">
-                    Genre: {movie.genres.map((g) => g.name).join("/")}
-                  </div>
-                  <div className="">
-                    Runtime:{" "}
-                    {`${Math.floor(movie.runtime / 60)}h ${
-                      movie.runtime % 60
-                    }m`}
-                  </div>
+                <div className="">
+                  Genre: {movie.genres.map((g) => g.name).join("/")}
                 </div>
-                <div className="w100 px-3 d-flex justify-content-between">
-                  {userContext.isAuth ? (
-                    <div className="" onClick={handleCreateOpen}>
-                      {reviews &&
-                      reviews.some(
-                        (r) => r.owner_id === userContext.user.id
-                      ) ? (
-                        <a
-                          style={{
-                            textDecoration: "underline",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Edit your review
-                        </a>
-                      ) : (
-                        <a
-                          style={{
-                            textDecoration: "underline",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Leave a review
-                        </a>
-                      )}
-                    </div>
-                  ) : (
-                    <div>Please login to leave a review.</div>
-                  )}
+                <div className="">
+                  Runtime:{" "}
+                  {`${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m`}
+                </div>
+              </div>
+              <div className="w100 px-3 d-flex justify-content-between">
+                {userContext.isAuth ? (
+                  <div className="" onClick={handleCreateOpen}>
+                    {reviews &&
+                    reviews.some((r) => r.owner_id === userContext.user.id) ? (
+                      <a
+                        style={{
+                          textDecoration: "underline",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Edit your review
+                      </a>
+                    ) : (
+                      <a
+                        style={{
+                          textDecoration: "underline",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Leave a review
+                      </a>
+                    )}
+                  </div>
+                ) : (
+                  <div>Please login to leave a review.</div>
+                )}
 
-                  <div className="">
-                    <ReviewStars showNumerical value={movie.vote_average / 2} />
-                  </div>
+                <div className="">
+                  <ReviewStars showNumerical value={movie.vote_average / 2} />
                 </div>
+              </div>
               {/* <ReviewIndex movie_id={movie.id}/> */}
-          <hr />
-          <Row className="justify-content-center mb-3">
-            {reviews && reviews.length > 0 ? (
-              reviews.map((review) => {
-                return (
-                  <ReviewDisplay
-                    key={review.id + review.updatedAt}
-                    review={review}
-                    showEditModal={handleEditOpen}
-                    fetchReviews={fetchReviews}
-                  />
-                );
-              })
-            ) : (
-              <>
-                <h3 className="p-5">
-                  There are no reviews on this movie. Be the first?
-                </h3>
-              </>
-            )}
-          </Row>
+              <hr />
+              <Row className="justify-content-center mb-3">
+                {reviews && reviews.length > 0 ? (
+                  reviews.map((review) => {
+                    return (
+                      <ReviewDisplay
+                        key={review.id + review.updatedAt}
+                        review={review}
+                        showEditModal={handleEditOpen}
+                        fetchReviews={fetchReviews}
+                      />
+                    );
+                  })
+                ) : (
+                  <>
+                    <h3 className="p-5">
+                      There are no reviews on this movie. Be the first?
+                    </h3>
+                  </>
+                )}
+              </Row>
             </Col>
           </Row>
           {console.log(movie)}
-          <hr/>
-          <Container >
-
-          <SimilarMovies movie={movie} />
+          <hr />
+          <Container>
+            <SimilarMovies movie={movie} />
           </Container>
         </Container>
       )}

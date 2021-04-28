@@ -1,5 +1,5 @@
 .outer .middle {
-    --c: rgb(255, 0, 0);
+    --c: rgb(0,0,0);
     color: var(--c);
     font-size: 16px;
     border: 0.3em solid var(--c);
@@ -16,7 +16,6 @@
     overflow: hidden;
     z-index: 1;
     transition: 0.5s;
-    margin: 1em;
 }
 
 .outer .middle span {
@@ -33,7 +32,7 @@
 }
 
 .outer .middle:hover {
-    color: black;
+    color: white;
 }
 
 .outer .middle:hover span {

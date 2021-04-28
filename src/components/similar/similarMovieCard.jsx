@@ -4,7 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import "./similar.css";
 
 const SimilarCard = (props) => {
-  console.log(props);
+  // console.log(props);
   return (
     <LinkContainer
       to={{

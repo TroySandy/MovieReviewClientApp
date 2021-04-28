@@ -1,8 +1,9 @@
-.similar-card {
+.watch-card {
   position: relative;
   /* margin: 5px; */
   cursor: pointer;
-  display: flex;
+  display: inline-block;
+  vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
@@ -12,9 +13,9 @@
   transition-property: transform;
 }
 
-.similar-card:hover,
-.similar-card:focus,
-.similar-card:active {
+.watch-card:hover,
+.watch-card:focus,
+.watch-card:active {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
   z-index: 10;
@@ -47,7 +48,7 @@
     transform: translateX(var(--sheenX)) translateY(var(--sheenY));
   } */
 
-.similar-card-title {
+.watch-card-title {
   display: none;
   width: 100%;
   position: absolute;
@@ -64,9 +65,9 @@
   line-height: 1;
 }
 
-.similar-card:hover .similar-card-title {
+.watch-card:hover .watch-card-title {
   display: block;
 }
-.similar {
+.watch {
   background-color: grey !important;
 }

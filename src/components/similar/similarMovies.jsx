@@ -5,10 +5,10 @@ import "../home/Home.css";
 import SimilarDisplay from "./similarDisplay";
 
 const SimilarMovies = (props) => {
-  console.log(props);
+  // console.log(props);
   const results = props.movie.similar.results;
 
-  console.log(results);
+  // console.log(results);
 
   return (
     <>
