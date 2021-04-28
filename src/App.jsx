@@ -7,6 +7,8 @@ import Footer from "./components/site/Footer";
 import { UserContextProvider } from "./contexts/UserContext";
 import "./App.css";
 import Movie from "./components/movie/Movie";
+import WatchList from './components/watchList/WatchList';
+import SimilarList from "./components/similar/similarList";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/movie/:movie_id" component={Movie} />
+          <Route path="/watched/:movie_id" component={WatchList} />
+          <Route path="/similar/:movie_id" component={SimilarList} />
           <Route path="/" component={Home} />
         </Switch>
 

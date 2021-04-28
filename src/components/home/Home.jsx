@@ -6,6 +6,7 @@ import { useState, useEffect, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import MovieDisplay from "./HomeMovieDisplay";
 import ReviewIndex from "../review/ReviewIndex";
+import WatchListView from "../watchList/watchDisplay";
 
 const Home = (props) => {
   const [moviesResult, setMoviesResult] = useState([]);
@@ -30,12 +31,32 @@ const Home = (props) => {
     }
   }, [searchInput]);
 
+  // function mousePosition(e) {
+  //   const height = window.innerHeight;
+  //   const width= window.innerWidth;
+  //   const yAxisAngles = e.pageX / width * 40 -20;
+  //   const xAxisAngles = e.pageY / height * -1 * 40 + 20;
+  //   target.style.transform = `rotateY(${yAxisAngles}deg) rotateX(${xAxisAngles}deg)`;
+  //   setSheenPosition(e.pageX / width, e.pageY / width);
+  // }
+
+  // function setSheenPosition(xRatio, yRatio) {
+  //   const xOffset = 1 - (xRatio -0.5) * 800;
+  //   const yOffset = 1 - (yRatio -0.5) * 800;
+  //   target.style.setProperty('--sheenX', `${xOffset}px`)
+  //   target.style.setProperty('--sheenY', `${yOffset}px`)
+  // }
+  // document.onmousemove = mousePosition;
+
   return (
     <>
-      <Container className="pt-5 body">
+      <Container
+        className="pt-5 body"
+        //  onMouseOver={mousePosition()}
+      >
         <Row noGutters>
           {/* Main Content */}
-          <Col xs={9}>
+          <Col xs={12} className="movieDisplay">
             {/* Search */}
             <Row>
               <Col>
@@ -48,9 +69,9 @@ const Home = (props) => {
                 />
               </Col>
             </Row>
-            {/* <div>
-              <ReviewIndex movie_id="634" />
-            </div> */}
+            <div>
+              <WatchListView />
+            </div>
             {/* Movie Display */}
             <MovieDisplay results={moviesResult} />
           </Col>

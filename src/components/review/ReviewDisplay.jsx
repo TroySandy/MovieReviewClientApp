@@ -35,6 +35,7 @@ const MovieDisplay = (props) => {
   }, []);
 
   return (
+
     <>
       <Col key={review.id} xs={10}>
         <div className="p-3 mt-3" style={{ border: "1px solid" }}>

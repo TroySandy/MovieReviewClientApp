@@ -17,6 +17,7 @@ const ReviewCreate = (props) => {
   const [movie_id, setMovie_id] = useState(props.movieId);
 
   let handleSubmit = (e) => {
+    console.log(review, rating, favorite, watched, movie_id, );
     e.preventDefault();
 
     fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/`, {
