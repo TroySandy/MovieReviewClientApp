@@ -189,9 +189,10 @@ const Movie = (props) => {
                   </div>
                 </div>
               </div>
-              <h2 className="text-center mt-5 px-3">{movie.title}</h2>
-              <h6 className="text-center mb-5 px-3">{movie.tagline}</h6>
-              <p className="px-3">{movie.overview}</p>
+              <h2 className="text-center mt-5 px-3" id="movietitle">{movie.title}</h2>
+              <hr id="line"/>
+              <h6 className="text-center mb-5 px-3" id="tagline">{movie.tagline}</h6>
+              <p className="px-3" id="overview">{movie.overview}</p>
 
               {/* <ReviewIndex movie_id={movie.id}/> */}
             </Col>
