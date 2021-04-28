@@ -42,7 +42,8 @@ const Home = (props) => {
             <Row>
               <Col>
                 <Form.Control
-                  className="movie-search"
+                  className="movie-search btn-secondary" 
+                  id="search"
                   type="text"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}

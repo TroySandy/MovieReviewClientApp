@@ -6,7 +6,7 @@ const Footer = (props) => {
     <Card bg="danger" variant="danger">
       <Card.Body>
         <Card.Header className="fonts" id="footer">
-        Copyright © 2021 - Movie DB
+        Copyright © 2021 - PrintView
         </Card.Header>
       </Card.Body>
     </Card>

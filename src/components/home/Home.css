@@ -1,6 +1,13 @@
 .movie-search {
   border-radius: 0;
   border: 2px solid black;
+  color: white;
+  
+}
+
+#search {
+  font-size: 1.2em;
+  font-weight: bolder;
 }
 
 .movie-card {

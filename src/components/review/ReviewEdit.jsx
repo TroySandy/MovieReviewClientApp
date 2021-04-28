@@ -92,7 +92,7 @@ const ReviewEdit = (props) => {
           </div>
         </div>
         <div className="d-flex justify-content-center">
-          <Button type="submit">Click to Submit Your Review!</Button>
+          <Button type="submit" variant="danger">Click to Submit Your Review!</Button>
         </div>
       </Form>
     </>

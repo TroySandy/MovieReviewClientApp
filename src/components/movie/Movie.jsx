@@ -86,12 +86,13 @@ const Movie = (props) => {
   return (
     <>
       {movie && (
-        <Container className="movie py-3 mt-5">
+        <Container className="movie py-3 mt-5 btn-dark">
           <Row noGutters>
             <Col xs={6} className="position-relative">
               <img
                 width="100%"
                 src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
+                id="image"
               />
               <div className="position-absolute" style={{ top: 0, right: 0 }}>
                 <FontAwesomeIcon
@@ -159,9 +160,10 @@ const Movie = (props) => {
                   </div>
                 </div>
               </div>
-              <h2 className="text-center mt-5 px-3">{movie.title}</h2>
-              <h6 className="text-center mb-5 px-3">{movie.tagline}</h6>
-              <p className="px-3">{movie.overview}</p>
+              <h2 className="text-center mt-5 px-3" id="movietitle">{movie.title}</h2>
+              <hr className="my-3" id="line"/>
+              <h6 className="text-center mb-4 px-3" id="tagline">{movie.tagline}</h6>
+              <p className="px-3" id="overview">{movie.overview}</p>
             </Col>
           </Row>
           <hr />
