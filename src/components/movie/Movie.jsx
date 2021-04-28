@@ -72,7 +72,8 @@ const Movie = (props) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        setReviews([...res]);
+        //setReviews([...res]);
+        let realReviews = res;
 
         setFavorite(
           res.find((r) => r.owner_id === userContext.user.id && r.favorite)
@@ -80,6 +81,34 @@ const Movie = (props) => {
         setWatched(
           res.find((r) => r.owner_id === userContext.user.id && r.watched)
         );
+
+        //fetch
+        fetch(
+          `${process.env.REACT_APP_TMDB_API_URL}/movie/${movie_id}/reviews?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+        )
+          .then((res) => res.json())
+          .then((res) => {
+            const reviewsArr = [];
+
+            res.results.map((r) => {
+              let reviewObj = {
+                id: r.id,
+                review: r.content,
+                rating: r.author_details.rating / 2,
+                updatedAt: r.updated_at,
+                user: {
+                  id: 9999999,
+                  firstName: "",
+                  lastName: "",
+                  username: r.author_details.username,
+                },
+              };
+
+              reviewsArr.push(reviewObj);
+            });
+
+            setReviews([...realReviews, ...reviewsArr]);
+          });
       });
   };
 
