@@ -20,11 +20,11 @@ const SiteNavbar = (props) => {
           <LinkContainer to="/">
             <Nav.Link id="home">Home</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/watched">
-            <Nav.Link>Watchlist</Nav.Link>
-          </LinkContainer>
           {userContext.isAuth ? (
             <>
+              <LinkContainer to="/watched">
+                <Nav.Link>Watchlist</Nav.Link>
+              </LinkContainer>
               <Nav.Link
                 onClick={() => {
                   userContext.setToken("");

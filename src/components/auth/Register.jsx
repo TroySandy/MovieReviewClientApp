@@ -106,9 +106,6 @@ const Register = (props) => {
   return (
     <>
       <Container>
-        {errors.map((e) => (
-          <div>{e}</div>
-        ))}
         <Row className="justify-content-center pt-5">
           <Col xs={7}>
             <Card>
