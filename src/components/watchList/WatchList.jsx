@@ -125,22 +125,17 @@ const WatchList = (props) => {
                   /> */}
               </div>
             </Col>
-            <Col className="position-relative pl-3">
               {cast.cast.map((castMember, index) => {
-                if (index > 4) return;
-                return (
-                  <>
-                    <div>{castMember.character}</div>
-                    <div>{castMember.name}</div>
-                    <img
-                      src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${castMember.profile_path}`}
-                      alt=""
-                      width="50px"
-                    />
-                  </>
-                );
+                if(index > 4)return;
+                return<>
+            <div>{castMember.character}</div>
+            <div>{castMember.name}</div>
+            <img src= {`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${castMember.profile_path}`} alt="" width='50px' height='50px'/>
+            </>
               })}
-
+            <Col className="position-relative pl-3">
+            
+             
               <div
                 className="position-absolute w-100 pr-3"
                 style={{ bottom: 0 }}
