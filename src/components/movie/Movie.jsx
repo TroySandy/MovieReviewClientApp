@@ -70,7 +70,7 @@ const Movie = (props) => {
         setMovie(res);
       });
   };
-
+console.log(movie);
   const fetchReviews = () => {
     fetch(`//${process.env.REACT_APP_SERVER_API_URL}/review/movie`, {
       method: "POST",
@@ -83,7 +83,7 @@ const Movie = (props) => {
       .then((res) => {
         //setReviews([...res]);
         let realReviews = res;
-
+console.log(res);
         setFavorite(
           res.find((r) => r.owner_id === userContext.user.id && r.favorite)
         );
@@ -124,7 +124,7 @@ const Movie = (props) => {
   return (
     <>
       {movie && (
-        <Container className="movie py-3 mt-5 btn-dark">
+        <Container className="movie py-3 mt-5 bg-dark text-light" >
           <Row noGutters>
             <Col xs={6} className="position-relative">
               <img
