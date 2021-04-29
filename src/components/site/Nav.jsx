@@ -11,9 +11,10 @@ const SiteNavbar = (props) => {
   return (
     <>
       <Navbar bg="danger" variant="dark">
+        <img src={Image} width="32" height="32" />
         <LinkContainer to="/">
           <Navbar.Brand className="mr-auto" id="title">
-            PrintView <img src={Image} width="30" height="30" alt='popcorn'/>
+            PrintView
           </Navbar.Brand>
         </LinkContainer>
         <Nav>

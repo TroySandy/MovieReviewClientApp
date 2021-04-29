@@ -12,12 +12,10 @@ const Home = (props) => {
   const [moviesResult, setMoviesResult] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-
   useEffect(() => {
     //load popular movies
     if (searchInput == "") {
       fetch(
-        // `${window.env.TMDB_API_URL}/movie/popular?region=US&api_key=${window.env.TMDB_API_KEY}`
         `${config.REACT_APP_TMDB_API_URL}/trending/movie/week?api_key=${config.REACT_APP_TMDB_API_KEY}`
       )
         .then((res) => res.json())
@@ -33,23 +31,6 @@ const Home = (props) => {
     }
   }, [searchInput]);
 
-  // function mousePosition(e) {
-  //   const height = window.innerHeight;
-  //   const width= window.innerWidth;
-  //   const yAxisAngles = e.pageX / width * 40 -20;
-  //   const xAxisAngles = e.pageY / height * -1 * 40 + 20;
-  //   target.style.transform = `rotateY(${yAxisAngles}deg) rotateX(${xAxisAngles}deg)`;
-  //   setSheenPosition(e.pageX / width, e.pageY / width);
-  // }
-
-  // function setSheenPosition(xRatio, yRatio) {
-  //   const xOffset = 1 - (xRatio -0.5) * 800;
-  //   const yOffset = 1 - (yRatio -0.5) * 800;
-  //   target.style.setProperty('--sheenX', `${xOffset}px`)
-  //   target.style.setProperty('--sheenY', `${yOffset}px`)
-  // }
-  // document.onmousemove = mousePosition;
-
   return (
     <>
       <Container
@@ -60,7 +41,7 @@ const Home = (props) => {
           {/* Main Content */}
           <Col xs={12} className="movieDisplay">
             {/* Search */}
-            <Row>
+            <Row className="pb-3">
               <Col>
                 <Form.Control
                   className="movie-search btn-secondary"
@@ -78,8 +59,6 @@ const Home = (props) => {
             {/* Movie Display */}
             <MovieDisplay results={moviesResult} />
           </Col>
-
-          
         </Row>
       </Container>
     </>

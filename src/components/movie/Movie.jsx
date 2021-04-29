@@ -40,7 +40,6 @@ const Movie = (props) => {
 
   const handleCreateClose = () => setCreateShowModal(false);
   const handleCreateOpen = () => {
-    //TODO: CHECK IF USER HAS A REVIEW, IF YES, SHOW EDIT INSTEAD
     if (userContext.isAuth) {
       if (reviews.some((r) => r.owner_id === userContext.user.id)) {
         handleEditOpen();
@@ -72,7 +71,7 @@ const Movie = (props) => {
         setMovie(res);
       });
   };
-// console.log(movie);
+  // console.log(movie);
   const fetchReviews = () => {
     fetch(`${config.REACT_APP_SERVER_API_URL}/review/movie`, {
       method: "POST",
@@ -85,7 +84,7 @@ const Movie = (props) => {
       .then((res) => {
         //setReviews([...res]);
         let realReviews = res;
-// console.log(res);
+        // console.log(res);
         setFavorite(
           res.find((r) => r.owner_id === userContext.user.id && r.favorite)
         );
@@ -116,7 +115,7 @@ const Movie = (props) => {
               };
 
               reviewsArr.push(reviewObj);
-              return
+              return;
             });
 
             setReviews([...realReviews, ...reviewsArr]);
@@ -134,7 +133,7 @@ const Movie = (props) => {
                 width="100%"
                 src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
                 id="image"
-                alt='movie poster'
+                alt="movie poster"
               />
               <div className="position-absolute" style={{ top: 0, right: 0 }}>
                 <FontAwesomeIcon
@@ -142,12 +141,18 @@ const Movie = (props) => {
                   size="2x"
                   color={watched ? "white" : "grey"}
                   icon={eyeFull}
+                  onClick={() => {
+                    setWatched(!watched);
+                  }}
                 />
                 <FontAwesomeIcon
                   className="m-2"
                   size="2x"
                   color={favorite ? "red" : "grey"}
                   icon={heartFull}
+                  onClick={() => {
+                    setFavorite(!favorite);
+                  }}
                 />
               </div>
             </Col>
@@ -156,7 +161,9 @@ const Movie = (props) => {
                 className="position-absolute w-100 pr-3"
                 style={{ bottom: 0 }}
               >
-                    <h3 className="w100 d-flex justify-content-center pb-3">Main Cast Members</h3>
+                <h3 className="w100 d-flex justify-content-center pb-3">
+                  Main Cast Members
+                </h3>
                 <div className="w100 px-3 d-flex justify-content-center pb-3">
                   <div>
                     {movie.credits.cast.map((castMember, index) => {
@@ -164,8 +171,9 @@ const Movie = (props) => {
                       return (
                         <>
                           <OverlayTrigger
+                            key={index + castMember.name}
                             placement="top"
-                            trigger="hover"
+                            trigger={["hover", "focus"]}
                             overlay={
                               <Tooltip id={"tooltip-top"}>
                                 <div>{castMember.character}</div>
@@ -177,7 +185,7 @@ const Movie = (props) => {
                               src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${castMember.profile_path}`}
                               alt="cast member"
                               width="18%"
-                              className='mx-1 rounded shadow-lg'
+                              className="mx-1 rounded shadow-lg"
                               // height="130px"
                             />
                           </OverlayTrigger>
@@ -190,7 +198,7 @@ const Movie = (props) => {
                   <div className="">
                     Genre: {movie.genres.map((g) => g.name).join("/")}
                   </div>
-                  <div className="">
+                  <div className="text-nowrap">
                     Runtime:{" "}
                     {`${Math.floor(movie.runtime / 60)}h ${
                       movie.runtime % 60
