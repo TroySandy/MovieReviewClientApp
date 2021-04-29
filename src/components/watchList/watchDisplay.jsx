@@ -7,6 +7,7 @@ import config from "../../config";
 
 const WatchListView = (props) => {
   const [movieResults, setMovieResults] = useState([]);
+  // const [movie_ID, setMovie_ID] = useState([]);
   const userContext = useContext(UserContext);
 
   useEffect(() => {

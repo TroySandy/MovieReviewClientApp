@@ -1,8 +1,11 @@
 import { Container, Row, Col, Form } from "react-bootstrap";
 import "./Home.css";
-import HomeSidebar from "./HomeSidebar";
-import { useState, useEffect } from "react";
+
+// import HomeMovieCard from "./HomeMovieCard";
+import { useState, useEffect, useContext } from "react";
 import MovieDisplay from "./HomeMovieDisplay";
+// import ReviewIndex from "../review/ReviewIndex";
+// import WatchListView from "../watchList/watchDisplay";
 import config from "../../config";
 
 const Home = (props) => {
@@ -55,11 +58,6 @@ const Home = (props) => {
             </div> */}
             {/* Movie Display */}
             <MovieDisplay results={moviesResult} />
-          </Col>
-
-          {/* Sidebar */}
-          <Col xs={3} style={{ paddingLeft: "5px" }}>
-            <HomeSidebar />
           </Col>
         </Row>
       </Container>

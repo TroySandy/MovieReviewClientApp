@@ -1,9 +1,13 @@
 import { useContext } from "react";
-import { Nav, Navbar, NavLink, Card } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import UserContext from "../../contexts/UserContext";
 import "../site/Site.css";
+<<<<<<< HEAD
 import Image from "../assests/image.png";
+=======
+import Image from "../assests/favicon.png";
+>>>>>>> develop
 
 const SiteNavbar = (props) => {
   let userContext = useContext(UserContext);

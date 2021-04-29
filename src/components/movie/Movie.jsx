@@ -67,11 +67,11 @@ const Movie = (props) => {
     )
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setMovie(res);
       });
   };
-
+  // console.log(movie);
   const fetchReviews = () => {
     fetch(`${config.REACT_APP_SERVER_API_URL}/review/movie`, {
       method: "POST",
@@ -84,7 +84,7 @@ const Movie = (props) => {
       .then((res) => {
         //setReviews([...res]);
         let realReviews = res;
-        console.log(res);
+        // console.log(res);
         setFavorite(
           res.find((r) => r.owner_id === userContext.user.id && r.favorite)
         );
@@ -133,6 +133,7 @@ const Movie = (props) => {
                 width="100%"
                 src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
                 id="image"
+                alt="movie poster"
               />
               <div className="position-absolute" style={{ top: 0, right: 0 }}>
                 <FontAwesomeIcon
@@ -182,7 +183,7 @@ const Movie = (props) => {
                           >
                             <img
                               src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${castMember.profile_path}`}
-                              alt="cast member picture"
+                              alt="cast member"
                               width="18%"
                               className="mx-1 rounded shadow-lg"
                               // height="130px"
@@ -211,23 +212,23 @@ const Movie = (props) => {
                       reviews.some(
                         (r) => r.owner_id === userContext.user.id
                       ) ? (
-                        <a
+                        <p
                           style={{
                             textDecoration: "underline",
                             cursor: "pointer",
                           }}
                         >
                           Edit your review
-                        </a>
+                        </p>
                       ) : (
-                        <a
+                        <p
                           style={{
                             textDecoration: "underline",
                             cursor: "pointer",
                           }}
                         >
                           Leave a review
-                        </a>
+                        </p>
                       )}
                     </div>
                   ) : (

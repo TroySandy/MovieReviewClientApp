@@ -88,7 +88,7 @@ const Register = (props) => {
             console.log("error");
           } else {
             //redirect to login
-            console.log("Success");
+            // console.log("Success");
             props.history.push("/login");
           }
           return res.json();
