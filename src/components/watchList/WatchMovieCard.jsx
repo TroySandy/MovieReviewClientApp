@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Row, Col, Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import "./watch.css";
 import config from "../../config";
@@ -35,6 +34,7 @@ const WatchedCard = (props) => {
           width="100%"
           src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${results.poster_path}`}
           className="img"
+          alt='movie poster'
         />
         <h6 className="text-center watch-card-title">{results.title}</h6>
         {/* <p className="text-center movie-card-title overflow-hidden" style={{maxHeight: '3.5rem'}}>{props.movie.overview}</p> */}
