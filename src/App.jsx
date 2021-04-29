@@ -7,13 +7,13 @@ import Footer from "./components/site/Footer";
 import { UserContextProvider } from "./contexts/UserContext";
 import "./App.css";
 import Movie from "./components/movie/Movie";
-import WatchList from "./components/watchList/WatchList";
+// import WatchList from "./components/watchList/WatchList";
 import SimilarList from "./components/similar/similarList";
 import WatchDisplay from "./components/watchList/watchDisplay";
 
 function App() {
   return (
-    <div className="App" className="grey">
+    <div className="App grey">
       <UserContextProvider>
         <Header />
 

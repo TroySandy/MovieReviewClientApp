@@ -1,4 +1,4 @@
-import { Container, Row, Col, Form, Card } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router";
 import UserContext from "../../contexts/UserContext";
@@ -98,6 +98,7 @@ const SimilarList = (props) => {
               <img
                 width="100%"
                 src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
+                alt='movie poster'
               />
               <div className="position-absolute" style={{ top: 0, right: 0 }}>
                 <FontAwesomeIcon
@@ -138,23 +139,23 @@ const SimilarList = (props) => {
                       reviews.some(
                         (r) => r.owner_id === userContext.user.id
                       ) ? (
-                        <a
+                        <p
                           style={{
                             textDecoration: "underline",
                             cursor: "pointer",
                           }}
                         >
                           Edit your review
-                        </a>
+                        </p>
                       ) : (
-                        <a
+                        <p
                           style={{
                             textDecoration: "underline",
                             cursor: "pointer",
                           }}
                         >
                           Leave a review
-                        </a>
+                        </p>
                       )}
                     </div>
                   ) : (
