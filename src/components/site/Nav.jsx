@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { Nav, Navbar, NavLink, Card } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import UserContext from "../../contexts/UserContext";
 import "../site/Site.css";
-import Image from "../assests/memepopcorn.png";
+import Image from "../assests/favicon.png";
 
 const SiteNavbar = (props) => {
   let userContext = useContext(UserContext);
@@ -13,7 +13,7 @@ const SiteNavbar = (props) => {
       <Navbar bg="danger" variant="dark">
         <LinkContainer to="/">
           <Navbar.Brand className="mr-auto" id="title">
-            PrintView <img src={Image} width="30" height="30" />
+            PrintView <img src={Image} width="30" height="30" alt='popcorn'/>
           </Navbar.Brand>
         </LinkContainer>
         <Nav>

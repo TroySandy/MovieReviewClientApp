@@ -35,7 +35,7 @@ const MovieDisplay = (props) => {
       fetch(`${config.REACT_APP_SERVER_API_URL}/user/${review.owner_id}`)
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setUser(res);
         });
     }
@@ -53,19 +53,19 @@ const MovieDisplay = (props) => {
           {review.review.length > 500 ? (
             <div className="pb-3 d-flex justify-content-end">
               {extendedReview ? (
-                <a
+                <p
                   onClick={() => setExtendedReview(false)}
                   style={{ cursor: "pointer", textDecoration: "underline" }}
                 >
                   Show Less...
-                </a>
+                </p>
               ) : (
-                <a
+                <p
                   onClick={() => setExtendedReview(true)}
                   style={{ cursor: "pointer", textDecoration: "underline" }}
                 >
                   Show More...
-                </a>
+                </p>
               )}
             </div>
           ) : null}
@@ -82,12 +82,12 @@ const MovieDisplay = (props) => {
                   <>
                     {" "}
                     |{" "}
-                    <a
+                    <p
                       onClick={props.showEditModal}
                       style={{ cursor: "pointer", textDecoration: "underline" }}
                     >
                       Edit
-                    </a>
+                    </p>
                   </>
                 )}
               {!props.review.user &&
@@ -96,12 +96,12 @@ const MovieDisplay = (props) => {
                   <>
                     {" "}
                     |{" "}
-                    <a
+                    <p
                       onClick={deleteReview}
                       style={{ cursor: "pointer", textDecoration: "underline" }}
                     >
                       Delete
-                    </a>
+                    </p>
                   </>
                 )}
             </div>

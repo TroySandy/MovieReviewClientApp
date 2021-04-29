@@ -1,4 +1,4 @@
-import { Container, Row, Col, Form, Card } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import "../home/Home.css";
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
@@ -7,7 +7,7 @@ import config from "../../config";
 
 const WatchListView = (props) => {
   const [movieResults, setMovieResults] = useState([]);
-  const [movie_ID, setMovie_ID] = useState([]);
+  // const [movie_ID, setMovie_ID] = useState([]);
   const userContext = useContext(UserContext);
 
   useEffect(() => {

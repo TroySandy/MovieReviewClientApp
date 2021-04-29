@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import UserContext from "../../contexts/UserContext";

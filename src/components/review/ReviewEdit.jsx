@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import UserContext from "../../contexts/UserContext";
 import ReviewStars from "../movie/ReviewStars";
@@ -15,7 +15,7 @@ const ReviewEdit = (props) => {
   const [rating, setRating] = useState(props.review.rating);
   const [favorite, setFavorite] = useState(props.review.favorite);
   const [watched, setWatched] = useState(props.review.watched);
-  const [movie_id, setMovie_id] = useState(props.movieId);
+  // const [movie_id, setMovie_id] = useState(props.movieId);
 
   const reviewUpdate = (e) => {
     e.preventDefault();

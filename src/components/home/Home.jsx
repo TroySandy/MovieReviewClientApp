@@ -1,18 +1,17 @@
-import { Container, Row, Col, Form, Card } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import "./Home.css";
-import HomeSidebar from "./HomeSidebar";
-import HomeMovieCard from "./HomeMovieCard";
+
+// import HomeMovieCard from "./HomeMovieCard";
 import { useState, useEffect, useContext } from "react";
-import UserContext from "../../contexts/UserContext";
 import MovieDisplay from "./HomeMovieDisplay";
-import ReviewIndex from "../review/ReviewIndex";
-import WatchListView from "../watchList/watchDisplay";
+// import ReviewIndex from "../review/ReviewIndex";
+// import WatchListView from "../watchList/watchDisplay";
 import config from "../../config";
 
 const Home = (props) => {
   const [moviesResult, setMoviesResult] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const userContext = useContext(UserContext);
+
 
   useEffect(() => {
     //load popular movies
@@ -80,10 +79,7 @@ const Home = (props) => {
             <MovieDisplay results={moviesResult} />
           </Col>
 
-          {/* Sidebar */}
-          <Col xs={3} style={{ paddingLeft: "5px" }}>
-            <HomeSidebar />
-          </Col>
+          
         </Row>
       </Container>
     </>
