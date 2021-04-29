@@ -26,19 +26,15 @@ const WatchListView = (props) => {
       props.history.push("/login");
     }
   }, []);
-  // console.log(movieResults);
+
   return (
     <>
       {" "}
-      <Container
-        className="pt-5 watch"
-        //  onMouseOver={mousePosition()}
-      >
+      <Container className="pt-5 watch">
         <Row noGutters>
-          {/* Main Content */}
+          <h2 className="text-light">Your favorite & watched movies...</h2>
           <Col xs={12} className="movieDisplay">
             <div>
-              {/* <ReviewIndex movie_id="634" /> */}
               <WatchDisplay results={movieResults} />
             </div>
           </Col>

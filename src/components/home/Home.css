@@ -1,7 +1,11 @@
 .movie-search {
   border-radius: 0;
   border: 2px solid black;
-  color: white;
+  color: rgb(179, 179, 179) !important;
+}
+
+.movie-search::placeholder {
+  color: #404040 !important;
 }
 
 #search {

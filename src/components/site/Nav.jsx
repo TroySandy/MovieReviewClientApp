@@ -10,10 +10,11 @@ const SiteNavbar = (props) => {
 
   return (
     <>
-      <Navbar className="sticky-top" bg="danger" variant="dark">
+      <Navbar bg="danger" variant="dark">
+        <img src={Image} width="32" height="32" />
         <LinkContainer to="/">
           <Navbar.Brand className="mr-auto" id="title">
-            FlickView <img src={Image} width="30" height="30" alt='popcorn'/>
+            FlickView
           </Navbar.Brand>
         </LinkContainer>
         <Nav>
