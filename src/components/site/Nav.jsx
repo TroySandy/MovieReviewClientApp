@@ -14,7 +14,7 @@ const SiteNavbar = (props) => {
         <img src={Image} width="32" height="32" />
         <LinkContainer to="/">
           <Navbar.Brand className="mr-auto" id="title">
-            PrintView
+            FlickView
           </Navbar.Brand>
         </LinkContainer>
         <Nav>
