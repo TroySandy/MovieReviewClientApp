@@ -81,12 +81,12 @@ const MovieDisplay = (props) => {
                   <>
                     {" "}
                     |{" "}
-                    <p
+                    <span
                       onClick={props.showEditModal}
                       style={{ cursor: "pointer", textDecoration: "underline" }}
                     >
                       Edit
-                    </p>
+                    </span>
                   </>
                 )}
               {!props.review.user &&
@@ -95,12 +95,12 @@ const MovieDisplay = (props) => {
                   <>
                     {" "}
                     |{" "}
-                    <p
+                    <span
                       onClick={deleteReview}
                       style={{ cursor: "pointer", textDecoration: "underline" }}
                     >
                       Delete
-                    </p>
+                    </span>
                   </>
                 )}
             </div>
