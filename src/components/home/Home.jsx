@@ -1,24 +1,18 @@
-import { Container, Row, Col, Form, Card } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import "./Home.css";
 import HomeSidebar from "./HomeSidebar";
-import HomeMovieCard from "./HomeMovieCard";
-import { useState, useEffect, useContext } from "react";
-import UserContext from "../../contexts/UserContext";
+import { useState, useEffect } from "react";
 import MovieDisplay from "./HomeMovieDisplay";
-import ReviewIndex from "../review/ReviewIndex";
-import WatchListView from "../watchList/watchDisplay";
 import config from "../../config";
 
 const Home = (props) => {
   const [moviesResult, setMoviesResult] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const userContext = useContext(UserContext);
 
   useEffect(() => {
     //load popular movies
     if (searchInput == "") {
       fetch(
-        // `${window.env.TMDB_API_URL}/movie/popular?region=US&api_key=${window.env.TMDB_API_KEY}`
         `${config.REACT_APP_TMDB_API_URL}/trending/movie/week?api_key=${config.REACT_APP_TMDB_API_KEY}`
       )
         .then((res) => res.json())
@@ -33,23 +27,6 @@ const Home = (props) => {
         .catch((err) => console.log(err));
     }
   }, [searchInput]);
-
-  // function mousePosition(e) {
-  //   const height = window.innerHeight;
-  //   const width= window.innerWidth;
-  //   const yAxisAngles = e.pageX / width * 40 -20;
-  //   const xAxisAngles = e.pageY / height * -1 * 40 + 20;
-  //   target.style.transform = `rotateY(${yAxisAngles}deg) rotateX(${xAxisAngles}deg)`;
-  //   setSheenPosition(e.pageX / width, e.pageY / width);
-  // }
-
-  // function setSheenPosition(xRatio, yRatio) {
-  //   const xOffset = 1 - (xRatio -0.5) * 800;
-  //   const yOffset = 1 - (yRatio -0.5) * 800;
-  //   target.style.setProperty('--sheenX', `${xOffset}px`)
-  //   target.style.setProperty('--sheenY', `${yOffset}px`)
-  // }
-  // document.onmousemove = mousePosition;
 
   return (
     <>

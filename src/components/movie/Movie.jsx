@@ -40,7 +40,6 @@ const Movie = (props) => {
 
   const handleCreateClose = () => setCreateShowModal(false);
   const handleCreateOpen = () => {
-    //TODO: CHECK IF USER HAS A REVIEW, IF YES, SHOW EDIT INSTEAD
     if (userContext.isAuth) {
       if (reviews.some((r) => r.owner_id === userContext.user.id)) {
         handleEditOpen();
@@ -72,7 +71,7 @@ const Movie = (props) => {
         setMovie(res);
       });
   };
-  console.log(movie);
+
   const fetchReviews = () => {
     fetch(`${config.REACT_APP_SERVER_API_URL}/review/movie`, {
       method: "POST",
@@ -116,6 +115,7 @@ const Movie = (props) => {
               };
 
               reviewsArr.push(reviewObj);
+              return;
             });
 
             setReviews([...realReviews, ...reviewsArr]);
@@ -140,12 +140,18 @@ const Movie = (props) => {
                   size="2x"
                   color={watched ? "white" : "grey"}
                   icon={eyeFull}
+                  onClick={() => {
+                    setWatched(!watched);
+                  }}
                 />
                 <FontAwesomeIcon
                   className="m-2"
                   size="2x"
                   color={favorite ? "red" : "grey"}
                   icon={heartFull}
+                  onClick={() => {
+                    setFavorite(!favorite);
+                  }}
                 />
               </div>
             </Col>
@@ -164,8 +170,9 @@ const Movie = (props) => {
                       return (
                         <>
                           <OverlayTrigger
+                            key={index + castMember.name}
                             placement="top"
-                            trigger="hover"
+                            trigger={["hover", "focus"]}
                             overlay={
                               <Tooltip id={"tooltip-top"}>
                                 <div>{castMember.character}</div>
