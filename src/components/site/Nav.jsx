@@ -1,24 +1,31 @@
 import { useContext } from "react";
-import { Nav, Navbar, NavLink } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import UserContext from "../../contexts/UserContext";
+import "../site/Site.css";
+import Image from "../assests/favicon.png";
 
 const SiteNavbar = (props) => {
   let userContext = useContext(UserContext);
 
   return (
     <>
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="danger" variant="dark">
+        <img src={Image} width="32" height="32" />
         <LinkContainer to="/">
-          <Navbar.Brand className="mr-auto">Movie DB</Navbar.Brand>
+          <Navbar.Brand className="mr-auto" id="title">
+            FlickView
+          </Navbar.Brand>
         </LinkContainer>
         <Nav>
           <LinkContainer to="/">
-            <Nav.Link>Home</Nav.Link>
+            <Nav.Link id="home">Home</Nav.Link>
           </LinkContainer>
           {userContext.isAuth ? (
             <>
-              <Nav.Link>Watchlist</Nav.Link>
+              <LinkContainer to="/watched">
+                <Nav.Link>Watchlist</Nav.Link>
+              </LinkContainer>
               <Nav.Link
                 onClick={() => {
                   userContext.setToken("");
@@ -34,7 +41,6 @@ const SiteNavbar = (props) => {
           )}
         </Nav>
       </Navbar>
-      {userContext.isAuth ? <p>Hello {userContext.user.firstName}</p> : null}
     </>
   );
 };

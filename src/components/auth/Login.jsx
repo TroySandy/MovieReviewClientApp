@@ -1,11 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import UserContext from "../../contexts/UserContext";
+import "./Login.css";
+import config from "../../config";
 
 const Login = (props) => {
   let { setToken } = useContext(UserContext);
+
   let [username, setUsername] = useState("");
+
   let [password, setPassword] = useState("");
   let [error, setError] = useState("");
 
@@ -15,7 +19,7 @@ const Login = (props) => {
       password,
     };
 
-    fetch(`http://localhost:4000/user/login`, {
+    fetch(`${config.REACT_APP_SERVER_API_URL}/user/login`, {
       method: "POST",
       body: JSON.stringify(fetchBody),
       headers: {
@@ -26,7 +30,7 @@ const Login = (props) => {
         if (res.status != 200) {
           setError("Invalid username or password.");
         } else {
-          //redirect to login
+          //redirect to home
           props.history.push("/");
         }
         return res.json();
@@ -43,7 +47,7 @@ const Login = (props) => {
 
   return (
     <>
-      <Container>
+      <Container className="mb-5">
         <Row className="justify-content-center pt-5">
           <Col xs={6}>
             <Card>
@@ -80,16 +84,33 @@ const Login = (props) => {
                   </Form.Group>
                   <Form.Row className="justify-content-center">
                     <LinkContainer to="/register">
-                      <Button className="mx-1">Register</Button>
+                      <div className="registerBtnOut">
+                        <Button
+                          className="registerBtnMid"
+                          variant="outline-secondary"
+                        >
+                          Register<span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </Button>
+                      </div>
                     </LinkContainer>
-                    <Button
-                      className="mx-1"
-                      onClick={() => {
-                        handleLogin();
-                      }}
-                    >
-                      Sign In
-                    </Button>
+                    <div className="submitBtnOut">
+                      <Button
+                        className="submitBtnMid"
+                        onClick={() => {
+                          handleLogin();
+                        }}
+                        variant="outline-danger"
+                      >
+                        Sign In
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </Button>
+                    </div>
                   </Form.Row>
                 </Form>
               </Card.Body>

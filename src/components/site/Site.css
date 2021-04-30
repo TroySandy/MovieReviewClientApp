@@ -1,0 +1,25 @@
+.fonts {
+    color: white;
+    padding-left: 20px;
+}
+
+#title {
+    font-size: 30px;
+   text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee, 
+   2px 1px 1px #ccc, 1px 2px 1px #eee,
+   3px 2px 1px #ccc, 2px 3px 1px #eee,
+   4px 3px 1px rgb(20, 12, 12), 3px 4px 1px rgb(10, 8, 8),
+   5px 4px 1px rgb(17, 10, 10), 4px 5px 1px rgb(19, 6, 6),
+   6px 5px 1px rgb(17, 2, 2), 5px 6px 1px rgb(24, 5, 5),
+   7px 6px 1px rgb(15, 1, 1);
+}
+
+
+
+#header {
+    padding-top: 10px;
+}
+
+#footer {
+    text-align: center;
+}

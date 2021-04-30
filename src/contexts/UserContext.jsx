@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import config from "../config";
 
 const UserContext = createContext(null);
 
@@ -11,7 +12,7 @@ export const UserContextProvider = (props) => {
     if (token) {
       localStorage.setItem("token", token);
 
-      fetch(`http://${window.env.SERVER_API_URL}/user/`, {
+      fetch(`${config.REACT_APP_SERVER_API_URL}/user/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

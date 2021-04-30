@@ -1,8 +1,12 @@
-import { Container, Row, Col, Form, Card } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import "./Home.css";
-import HomeSidebar from "./HomeSidebar";
-import HomeMovieCard from "./HomeMovieCard";
-import { useState, useEffect } from "react";
+
+// import HomeMovieCard from "./HomeMovieCard";
+import { useState, useEffect, useContext } from "react";
+import MovieDisplay from "./HomeMovieDisplay";
+// import ReviewIndex from "../review/ReviewIndex";
+// import WatchListView from "../watchList/watchDisplay";
+import config from "../../config";
 
 const Home = (props) => {
   const [moviesResult, setMoviesResult] = useState([]);
@@ -12,29 +16,36 @@ const Home = (props) => {
     //load popular movies
     if (searchInput == "") {
       fetch(
-        `${window.env.TMDB_API_URL}/movie/popular?api_key=${window.env.TMDB_API_KEY}`
+        `${config.REACT_APP_TMDB_API_URL}/trending/movie/week?api_key=${config.REACT_APP_TMDB_API_KEY}`
       )
         .then((res) => res.json())
-        .then((res) => setMoviesResult(res.results));
+        .then((res) => setMoviesResult(res.results))
+        .catch((err) => console.log(err));
     } else {
       fetch(
-        `${window.env.TMDB_API_URL}/search/movie?query=${searchInput}&api_key=${window.env.TMDB_API_KEY}`
+        `${config.REACT_APP_TMDB_API_URL}/search/movie?region=US&query=${searchInput}&api_key=${config.REACT_APP_TMDB_API_KEY}`
       )
         .then((res) => res.json())
-        .then((res) => setMoviesResult(res.results));
+        .then((res) => setMoviesResult(res.results))
+        .catch((err) => console.log(err));
     }
   }, [searchInput]);
 
   return (
     <>
-      <Container className="pt-5">
-        <Row>
+      <Container
+        className="pt-5"
+        //  onMouseOver={mousePosition()}
+      >
+        <Row noGutters>
           {/* Main Content */}
-          <Col xs={9}>
+          <Col xs={12} className="movieDisplay">
             {/* Search */}
-            <Row>
+            <Row className="pb-3">
               <Col>
                 <Form.Control
+                  className="movie-search btn-secondary"
+                  id="search"
                   type="text"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
@@ -42,18 +53,11 @@ const Home = (props) => {
                 />
               </Col>
             </Row>
-
+            {/* <div>
+              <WatchListView />
+            </div> */}
             {/* Movie Display */}
-            <Row className="pt-3">
-              {moviesResult.map((movie) => {
-                return <HomeMovieCard movie={movie} />;
-              })}
-            </Row>
-          </Col>
-
-          {/* Sidebar */}
-          <Col xs={3}>
-            <HomeSidebar />
+            <MovieDisplay results={moviesResult} />
           </Col>
         </Row>
       </Container>

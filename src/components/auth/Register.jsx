@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
-import env from "react-dotenv";
+import "./Register.css";
+import config from "../../config";
 
 const Register = (props) => {
   let [firstName, setFirstName] = useState("");
@@ -74,7 +75,7 @@ const Register = (props) => {
     let errs = runValidation();
 
     if (errs.length == 0) {
-      fetch(`http://localhost:4000/user/register`, {
+      fetch(`${config.REACT_APP_SERVER_API_URL}/user/register`, {
         method: "POST",
         body: JSON.stringify(fetchBody),
         headers: {
@@ -87,7 +88,7 @@ const Register = (props) => {
             console.log("error");
           } else {
             //redirect to login
-            console.log("Success");
+            // console.log("Success");
             props.history.push("/login");
           }
           return res.json();
@@ -248,8 +249,21 @@ const Register = (props) => {
                     </Col>
                   </Form.Row>
                   <Form.Row>
-                    <Col>
-                      <Button onClick={() => handleRegister()}>Register</Button>
+                    <Col className="outer">
+                      <Button
+                        className="middle"
+                        onClick={() => {
+                          setValidated(true);
+                          handleRegister();
+                        }}
+                        variant="outline-dark"
+                      >
+                        Register
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </Button>
                     </Col>
                   </Form.Row>
                 </Form>
